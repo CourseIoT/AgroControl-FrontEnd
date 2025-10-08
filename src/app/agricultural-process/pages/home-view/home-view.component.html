@@ -1,0 +1,98 @@
+<section class="flex flex-col gap-6 max-w-full bg-gray-50 min-h-screen p-4 md:p-6">
+  <!-- Header Section -->
+  <div class="flex flex-col items-center gap-4">
+    <h1 class="text-3xl md:text-4xl font-bold text-gray-900 text-center">{{fieldName || 'New Field'}}</h1>
+  </div>
+
+  <!-- Main Content Grid -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+    <!-- Left Column: Plantation -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+      <div class="flex justify-between items-center mb-4 flex-wrap gap-3">
+        <h2 class="text-2xl font-bold text-gray-900">Plantation</h2>
+        <!-- Action Buttons -->
+        <div class="flex gap-3 flex-wrap">
+          <button
+            (click)="startNewProcess()"
+            class="bg-green-600 px-4 py-2 text-white font-semibold uppercase rounded-lg shadow-md hover:bg-green-700 transition-all duration-300 ease-in-out transform hover:scale-105 text-sm">
+            New Process
+          </button>
+          <button
+            (click)="finishProcess()"
+            class="bg-red-500 px-4 py-2 text-white font-semibold uppercase rounded-lg shadow-md hover:bg-red-600 transition-all duration-300 ease-in-out transform hover:scale-105 text-sm">
+            Finish Process
+          </button>
+        </div>
+      </div>
+      <app-last-activity-card
+        [agriculturalProcessId]="agriculturalProcessId"
+        [type]="'SEEDING'" />
+    </div>
+
+    <!-- Right Column: Workers Section -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-900">Workers</h2>
+      </div>
+
+      <!-- Workers Table -->
+      <app-workers-field-table [workers]="workers" [userId]="userId" />
+
+      <!-- Manage Workers Button -->
+      <div class="flex justify-center mt-4">
+        <button
+          *ngIf="workers.length > 0"
+          mat-raised-button
+          color="primary"
+          routerLink="/worker-management"
+          class="!w-full !max-w-xs !bg-green-600 !text-white !rounded-lg !py-2 !px-4 !transition-transform !transform !hover:scale-105 !shadow-lg">
+          View
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Section: Irrigation and Fumigation -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+    <!-- Irrigation -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-bold text-gray-900">Irrigation</h2>
+        <button class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-all shadow-md">
+          View
+        </button>
+      </div>
+      <app-last-activity-card
+        [agriculturalProcessId]="agriculturalProcessId"
+        [type]="'IRRIGATION'" />
+    </div>
+
+    <!-- Fumigation -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-bold text-gray-900">Fumigation</h2>
+        <button class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-all shadow-md">
+          View
+        </button>
+      </div>
+      <app-last-activity-card
+        [agriculturalProcessId]="agriculturalProcessId"
+        [type]="'CROP_TREATMENT'" />
+    </div>
+  </div>
+
+  <!-- Fertilizers Section -->
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-2xl font-bold text-gray-900">Fertilizers</h2>
+      <button class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-all shadow-md">
+        View
+      </button>
+    </div>
+    <div class="text-center text-gray-500 py-8">
+      <p class="text-sm">Date | Worker</p>
+    </div>
+  </div>
+</section>

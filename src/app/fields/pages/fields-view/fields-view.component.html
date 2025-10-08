@@ -1,0 +1,35 @@
+<!-- Main Container con fondo y padding responsive -->
+<section class="min-h-screen bg-gray-50 p-4 md:p-6 lg:p-8">
+
+  <!-- Header Section - Contenedor centrado con max-width -->
+  <div class="max-w-7xl mx-auto mb-8">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+
+      <!-- Título y Descripción -->
+      <div>
+        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-2">
+          {{ 'fields.myFields' | translate }}
+        </h1>
+        <p class="text-lg text-gray-600">
+          {{ 'fields.fieldMessage' | translate }}
+        </p>
+      </div>
+
+      <!-- OPCIONAL: Botón de agregar en el header (solo desktop) -->
+      <!-- Puedes descomentar esto si quieres el botón también arriba -->
+      <!-- <button
+        class="hidden md:inline-flex items-center gap-2 bg-green-600 px-6 py-3 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition-all duration-200">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+        </svg>
+        Add Field
+      </button> -->
+    </div>
+  </div>
+
+  <!-- Card Field List Component - Con contenedor centrado -->
+  <div class="max-w-7xl mx-auto">
+    <app-card-field-list [currentUserId]="userId"></app-card-field-list>
+  </div>
+
+</section>

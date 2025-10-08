@@ -1,0 +1,53 @@
+/* ALTURA Y CENTRADO DEL TOOLBAR */
+.agc-toolbar{
+  background:#073C3C;
+  color:#fff;
+  height:64px;                 /* > 56px para alojar botones 48x48 */
+  display:flex;
+  align-items:center;
+  position:sticky;
+  top:0; z-index:1000;
+}
+
+/* CONTENEDOR PEGADO A LOS BORDES */
+.agc-container{
+  display:flex; justify-content:space-between; align-items:center; width:100%;
+}
+.agc-container--flush{ padding:0 8px; }
+
+/* LAYOUT L/R */
+.agc-left, .agc-right{ display:flex; align-items:center; gap:10px; }
+
+/* MARCA */
+.agc-brand{ font-weight:800; font-size:20px; text-decoration:none; line-height:1; user-select:none; }
+.agc-brand-agro{ color:#fff; } .agc-brand-control{ color:#39A935; }
+
+/* ===== ICON BUTTONS (Angular Material MDC) ===== */
+.agc-toolbar .mat-mdc-icon-button{
+  --mdc-icon-button-size: 48px;
+  --mdc-icon-button-icon-size: 28px;
+  color:#fff;
+}
+
+/* Fallback por resets */
+.agc-toolbar .mat-mdc-icon-button,
+.agc-toolbar .mat-mdc-icon-button .mat-mdc-button-touch-target{
+  width:48px; height:48px;
+}
+.agc-toolbar .mat-mdc-icon-button .mat-icon{
+  font-size:28px;
+  width:28px; height:28px;
+  line-height:1;                 /* evita recortes verticales */
+  color:#fff !important;
+  /* opcional: version “filled” para mejor legibilidad en oscuro */
+  font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;
+}
+
+/* Badge tipo “dot” */
+.agc-badge-dot .mat-badge-content{
+  width:8px; height:8px; min-width:8px; line-height:8px; padding:0;
+  border:2px solid #073C3C;
+}
+
+/* Responsive: ocultar switcher y nombre en móvil si agregas nombre */
+@media (max-width:640px){ .agc-hide-sm{ display:none !important; } }

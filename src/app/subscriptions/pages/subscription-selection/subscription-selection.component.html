@@ -1,0 +1,32 @@
+<section class="max-w-4xl mx-auto p-4 mt-4 flex flex-col justify-between items-center gap-6">
+  <h2 class="text-4xl font-bold text-center">Subscription Selection</h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 bg-white rounded-lg border-black border-2 shadow-lg p-3">
+    <div class="col-span-1 md:col-span-2">
+      <app-subscription-details [subscriptionType]="id" />
+    </div>
+    <div class="flex flex-col justify-evenly col-span-1 gap-2">
+      <app-subscription-card [subscriptionType]="1" (click)="handleSelection()"
+                             [isSelected]="selectedSubscription"
+                             (subscriptionId)="handleId($event)"
+                             (subscriptionSelected)="handleSubscription($event)"
+                             class="w-full transition-transform duration-300 transform hover:scale-105"/>
+      <app-subscription-card [subscriptionType]="2" (click)="handleSelection()"
+                             [isSelected]="selectedSubscription"
+                             (subscriptionId)="handleId($event)"
+                             (subscriptionSelected)="handleSubscription($event)"
+                             class="w-full transition-transform duration-300 transform hover:scale-105"/>
+    </div>
+  </div>
+
+  <div class="flex">
+    <button
+      (click)="onSubmit()"
+      aria-label="Proceed to next step"
+      class="flex items-center uppercase bg-primary text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50 transition-colors duration-300">
+      <span>Next</span>
+      <mat-icon aria-hidden="true">keyboard_arrow_right</mat-icon>
+    </button>
+  </div>
+
+  <p class="text-red-600 text-lg" *ngIf="messageError">{{messageError}}</p>
+</section>

@@ -1,0 +1,7 @@
+<h2 class="text-center text-3xl font-semibold text-gray-800 mt-4">{{ 'products.productStore' | translate}}</h2>
+
+<app-products-list
+  [products]="products"
+  [showField]="2"
+  (edit)="openFormForEdit($event)"
+/>

@@ -1,0 +1,202 @@
+
+.agc-sidenav {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(180deg, #0a4d4d 0%, #073C3C 100%);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.1);
+}
+
+
+/* ===== HEADER CON LOGO ===== */
+.agc-sidenav-header {
+  padding: 24px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.agc-sidenav-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  font-size: 32px;
+  width: 32px;
+  height: 32px;
+  color: #39A935;
+}
+
+.logo-text {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.logo-agro {
+  color: #fff;
+}
+
+.logo-control {
+  color: #39A935;
+}
+
+/* ===== NAVIGATION MENU ===== */
+.agc-sidenav-nav {
+  flex: 1;
+  padding: 16px 12px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Scrollbar personalizado */
+.agc-sidenav-nav::-webkit-scrollbar {
+  width: 6px;
+}
+
+.agc-sidenav-nav::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.agc-sidenav-nav::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+.agc-sidenav-nav::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* ===== NAV ITEMS ===== */
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  margin-bottom: 6px;
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  outline: none;
+}
+
+.nav-icon {
+  font-size: 22px;
+  width: 22px;
+  height: 22px;
+  color: rgba(255, 255, 255, 0.7);
+  transition: all 0.25s ease;
+}
+
+.nav-text {
+  flex: 1;
+  white-space: nowrap;
+}
+
+/* Hover state */
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  transform: translateX(4px);
+}
+
+.nav-item:hover .nav-icon {
+  color: #39A935;
+  transform: scale(1.1);
+}
+
+/* Active state */
+.nav-item.active {
+  background: linear-gradient(90deg, rgba(57, 169, 53, 0.15) 0%, rgba(57, 169, 53, 0.05) 100%);
+  color: #fff;
+  border-left: 3px solid #39A935;
+  padding-left: 13px;
+}
+
+.nav-item.active .nav-icon {
+  color: #39A935;
+}
+
+.nav-item.active::before {
+  content: '';
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  background: #39A935;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(57, 169, 53, 0.6);
+}
+
+/* ===== FOOTER CON LOGOUT ===== */
+.agc-sidenav-footer {
+  padding: 16px 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logout-btn {
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.logout-btn:hover {
+  background: rgba(220, 53, 69, 0.1);
+  color: #ff6b7a;
+  border-color: rgba(220, 53, 69, 0.3);
+  transform: translateX(0);
+}
+
+.logout-btn:hover .nav-icon {
+  color: #ff6b7a;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .agc-sidenav {
+    width: 100%;
+    max-width: 280px;
+  }
+}
+
+/* Animaciones de entrada */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.nav-item {
+  animation: slideInLeft 0.3s ease-out backwards;
+}
+
+.nav-item:nth-child(1) { animation-delay: 0.05s; }
+.nav-item:nth-child(2) { animation-delay: 0.1s; }
+.nav-item:nth-child(3) { animation-delay: 0.15s; }
+.nav-item:nth-child(4) { animation-delay: 0.2s; }
+.nav-item:nth-child(5) { animation-delay: 0.25s; }
+.nav-item:nth-child(6) { animation-delay: 0.3s; }
+.nav-item:nth-child(7) { animation-delay: 0.35s; }
+.nav-item:nth-child(8) { animation-delay: 0.4s; }
+
+
+
+

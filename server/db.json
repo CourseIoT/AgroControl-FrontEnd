@@ -1,0 +1,361 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "producer_1",
+      "password": "producer1_password",
+      "roles": "PRODUCER"
+    },
+    {
+      "id": 2,
+      "username": "producer_2",
+      "password": "producer2_password",
+      "roles": "PRODUCER"
+    },
+    {
+      "id": 3,
+      "username": "distributor_1",
+      "password": "distributor1_password",
+      "roles": "DISTRIBUTOR"
+    }
+  ],
+  "producers": [
+    {
+      "id": 1,
+      "userId": 1,
+      "fullName": "Lionel Messi",
+      "city": "Lima",
+      "country": "Peru",
+      "phone": "123456789",
+      "documentNumber": "12345678"
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "fullName": "Quichiano Ronaldo",
+      "city": "Lima",
+      "country": "Peru",
+      "phone": "987654321",
+      "documentNumber": "87654321"
+    }
+  ],
+  "distributors": [
+    {
+      "id": 3,
+      "userId": 3,
+      "fullName": "Neymar Junior",
+      "city": "Lima",
+      "country": "Peru",
+      "phone": "123456789",
+      "companyName": "Distributor Company",
+      "ruc": "1234567890"
+    }
+  ],
+  "user_subscription": [
+    {
+      "id": 1,
+      "userId": 1,
+      "subscriptionType": "PREMIUM",
+      "subscriptionCost": 89.99,
+      "subscriptionState": true
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "subscriptionType": "BASIC",
+      "subscriptionCost": 19.99,
+      "subscriptionState": false
+    },
+    {
+      "id": 3,
+      "userId": 3,
+      "subscriptionType": "DISTRIBUTOR",
+      "subscriptionCost": 89.99,
+      "subscriptionState": true
+    }
+  ],
+  "payments": [
+    {
+      "id": 1,
+      "subscriptionId": 1,
+      "userId": 1,
+      "cardHolderName": "Lionel Messi",
+      "cardNumber": "123456789",
+      "expireDate": "12-28",
+      "cvv": "123"
+    },
+    {
+      "id": 2,
+      "subscriptionId": 2,
+      "userId": 2,
+      "cardHolderName": "Quichiano Ronaldo",
+      "cardNumber": "123456789",
+      "expireDate": "12-28",
+      "cvv": "100"
+    }
+  ],
+  "fields": [
+    {
+      "id": 1,
+      "userId": 1,
+      "fieldName": "prueba2",
+      "fieldSize": 90000,
+      "fieldLocation": "2500"
+    }
+  ],
+  "agriculturalProcess": [
+    {
+      "id": 1,
+      "fieldId": 1,
+      "plantType": "Tomato",
+      "startDate": "2024-09-15",
+      "endDate": null,
+      "isFinished": false,
+      "details": "Tomato process"
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "plantType": "Potato",
+      "startDate": null,
+      "endDate": null,
+      "isFinished": false,
+      "details": "Potato process"
+    }
+  ],
+  "seedingDetails": [
+    {
+      "id": 1,
+      "agriculturalProcessId": 1,
+      "plantType": "Tomato",
+      "date": "2024-09-15",
+      "plantedQuantity": 1000,
+      "totalPlantCost": 500,
+      "totalWorkersCost": 200,
+      "workers": [
+        {
+          "workerId": 1,
+          "cost": 100
+        },
+        {
+          "workerId": 2,
+          "cost": 100
+        }
+      ]
+    }
+  ],
+  "irrigationDetails": [
+    {
+      "id": 1,
+      "agriculturalProcessId": 1,
+      "date": "2024-09-28",
+      "hoursIrrigated": 5,
+      "totalWorkersCost": 200,
+      "workers": [
+        {
+          "workerId": 1,
+          "cost": 100
+        },
+        {
+          "workerId": 2,
+          "cost": 100
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "agriculturalProcessId": 1,
+      "date": "2024-09-30",
+      "hoursIrrigated": 3,
+      "totalWorkersCost": 100,
+      "workers": [
+        {
+          "workerId": 1,
+          "cost": 100
+        }
+      ]
+    }
+  ],
+  "cropTreatments": [
+    {
+      "id": 1,
+      "agriculturalProcessId": 1,
+      "treatmentType": "Fertilization",
+      "date": "2024-09-27",
+      "productsUsed": [
+        {
+          "productId": 1,
+          "quantity": 10
+        },
+        {
+          "productId": 2,
+          "quantity": 5
+        }
+      ],
+      "totalWorkersCost": 200,
+      "workers": [
+        {
+          "workerId": 1,
+          "cost": 100
+        },
+        {
+          "workerId": 2,
+          "cost": 100
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "agriculturalProcessId": 1,
+      "treatmentType": "Fumigation",
+      "date": "2024-09-28",
+      "productsUsed": [
+        {
+          "productId": 2,
+          "quantity": 5
+        }
+      ],
+      "totalWorkersCost": 100,
+      "workers": [
+        {
+          "workerId": 1,
+          "cost": 100
+        }
+      ]
+    }
+  ],
+  "finances": [
+    {
+      "id": 1,
+      "agriculturalProcessId": 1,
+      "date": "12-04-12",
+      "totalCost": "2",
+      "totalRevenue": "5",
+      "totalProfit": 3,
+      "apiId": "v1"
+    },
+    {
+      "id": 2,
+      "agriculturalProcessId": 1,
+      "date": "10-06-24",
+      "totalCost": "1000",
+      "totalRevenue": "2000",
+      "totalProfit": 1000,
+      "apiId": "v1"
+    }
+  ],
+  "harvestDetails": [
+    {
+      "id": 1,
+      "agriculturalProcessId": 1,
+      "date": "2024-09-30",
+      "harvestedQuantityInKg": 1000,
+      "pricePerKg": 2,
+      "totalIncome": 2000,
+      "totalWorkersCost": 200,
+      "workers": [
+        {
+          "workerId": 1,
+          "cost": 100
+        },
+        {
+          "workerId": 2,
+          "cost": 100
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "agriculturalProcessId": 1,
+      "date": "2024-09-30",
+      "harvestedQuantityInKg": 500,
+      "pricePerKg": 2,
+      "totalIncome": 1000,
+      "totalWorkersCost": 100,
+      "workers": [
+        {
+          "workerId": 1,
+          "cost": 100
+        }
+      ]
+    }
+  ],
+  "fieldWorkers": [
+    {
+      "id": 1,
+      "userId": 1,
+      "fullName": "Field Worker 1",
+      "phone": "123456789",
+      "documentNumber": "12345678"
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "fullName": "Field Worker 2",
+      "phone": "123456789",
+      "documentNumber": "12345678"
+    },
+    {
+      "id": 3,
+      "userId": 1,
+      "fullName": "Field Worker 3",
+      "phone": "123456789",
+      "documentNumber": "12345678"
+    },
+    {
+      "id": 4,
+      "userId": 1,
+      "fullName": "Worker 4",
+      "phone": "123456789",
+      "documentNumber": "87654321"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "userId": 1,
+      "name": "Fertilizer",
+      "totalCost": 1000,
+      "quantity": 100
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "name": "Pesticide",
+      "totalCost": 500,
+      "quantity": 50
+    }
+  ],
+  "agriculturalActivities": [
+    {
+      "id": 1,
+      "agriculturalProcessId": 1,
+      "activityType": "IRRIGATION",
+      "date": "2024-09-28",
+      "workersTotalCost": 200,
+      "hoursIrrigated": 5,
+      "plantType": null,
+      "quantityPlanted": null
+    },
+    {
+      "id": 2,
+      "agriculturalProcessId": 1,
+      "activityType": "SEEDING",
+      "date": "2024-09-15",
+      "workersTotalCost": 100,
+      "hoursIrrigated": null,
+      "plantType": "Tomato",
+      "quantityPlanted": 1000
+    },
+    {
+      "id": 3,
+      "agriculturalProcessId": 1,
+      "activityType": "IRRIGATION",
+      "date": "2024-09-28",
+      "workersTotalCost": 300,
+      "hoursIrrigated": 8,
+      "plantType": null,
+      "quantityPlanted": null
+    }
+  ]
+}

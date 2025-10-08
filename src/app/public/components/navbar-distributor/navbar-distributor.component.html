@@ -1,0 +1,34 @@
+<mat-toolbar class="agc-toolbar">
+  <div class="agc-container agc-container--flush">
+    <!-- IZQUIERDA: menú + marca -->
+    <div class="agc-left">
+      <button mat-icon-button class="agc-icon-btn agc-icon-btn--lg" (click)="onToggleSidenav()" aria-label="Abrir menú">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <a class="agc-brand" routerLink="/">
+        <span class="agc-brand-agro">Agro</span><span class="agc-brand-control">Control</span>
+      </a>
+    </div>
+
+    <!-- DERECHA: idioma, notificaciones, perfil -->
+    <div class="agc-right">
+      <app-language-switcher class="agc-hide-sm"></app-language-switcher>
+
+      <button mat-icon-button class="agc-icon-btn agc-icon-btn--lg agc-badge-dot"
+              aria-label="Notificaciones"
+              matBadge=" "
+              matBadgeColor="warn"
+              matBadgeOverlap="false">
+        <mat-icon>notifications_none</mat-icon>
+      </button>
+
+      <!-- Importante: ruta ABSOLUTA al perfil de distribuidor -->
+      <button mat-icon-button class="agc-icon-btn agc-icon-btn--lg"
+              [routerLink]="['/home-distributor', userId, 'profile-distributor', userId]"
+              aria-label="Perfil">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-toolbar>

@@ -1,0 +1,26 @@
+.treatment {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 5rem;
+}
+
+.treatment__container {
+  width: 60%;
+  position: relative;
+}
+
+.treatment__title {
+  font-weight: 600;
+}
+
+.button--add {
+  padding: 15px 40px;
+  border-radius: .5rem;
+  background-color: #2FB95D;
+  color: #FFF;
+
+  position: absolute;
+  bottom: -5rem;
+  right: 0;
+}

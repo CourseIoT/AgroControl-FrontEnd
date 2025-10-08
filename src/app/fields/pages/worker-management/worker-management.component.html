@@ -1,0 +1,31 @@
+<div class="flex flex-col items-center gap-6 mt-4 p-4">
+  <!-- Botón Add Worker -->
+  <button
+    (click)="openModal()"
+    class="w-full max-w-xs bg-blue-600 text-white rounded-lg py-3 px-6 transition-all transform hover:scale-105 shadow-lg"
+  >
+    {{ 'workers.addWorker' | translate }}
+  </button>
+
+  <!-- Tabla de Workers -->
+  <app-workers-field-table
+    [workers]="dataSource"
+    class="w-full max-w-4xl p-4 bg-white rounded-lg shadow-lg"
+  ></app-workers-field-table>
+
+  <!-- Botón Return -->
+  <button
+    (click)="goToHome()"
+    class="w-full max-w-xs bg-blue-600 text-white rounded-lg py-3 px-6 transition-all transform hover:scale-105 shadow-lg"
+  >
+    {{ 'shared.return' | translate }}
+  </button>
+
+  <app-worker-field-form
+  [isModalOpen]="modalOpen"
+  (close)="closeModal()"
+  [userId]="userId"
+  (success)="handleSuccess()"
+  class="w-full max-w-lg"
+></app-worker-field-form>
+</div>

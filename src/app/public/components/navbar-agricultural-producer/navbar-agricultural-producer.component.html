@@ -1,0 +1,31 @@
+<mat-toolbar class="agc-toolbar">
+  <div class="agc-container agc-container--flush">
+    <div class="agc-left">
+      <button mat-icon-button class="agc-icon-btn agc-icon-btn--lg" (click)="onToggleSidenav()">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <a class="agc-brand" routerLink="/">
+        <span class="agc-brand-agro">Agro</span><span class="agc-brand-control">Control</span>
+      </a>
+    </div>
+
+    <div class="agc-right">
+      <app-language-switcher class="agc-hide-sm" />
+
+      <button mat-icon-button class="agc-icon-btn agc-icon-btn--lg agc-badge-dot"
+              aria-label="Notificaciones"
+              matBadge=" "
+              matBadgeColor="warn"
+              matBadgeOverlap="false">
+        <mat-icon>notifications_none</mat-icon>
+      </button>
+
+      <button mat-icon-button class="agc-icon-btn agc-icon-btn--lg"
+              [routerLink]="['/profile-producer', userId]"
+              aria-label="Perfil">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-toolbar>

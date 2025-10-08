@@ -1,0 +1,93 @@
+/* Workers Table Styles */
+
+/* Responsive table adjustments */
+@media (max-width: 640px) {
+  table {
+    font-size: 0.875rem; /* 14px */
+  }
+
+  th, td {
+    padding: 0.75rem 0.5rem;
+  }
+}
+
+/* Smooth scroll for mobile overflow */
+@media (max-width: 768px) {
+  .overflow-hidden {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Hover effects enhancement */
+tbody tr {
+  cursor: default;
+}
+
+/* Focus states for accessibility */
+button:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Animation for empty state */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.flex.flex-col.items-center {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 480px) {
+  /* Stack table cells vertically on very small screens if needed */
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  /* Adjust empty state padding */
+  .border.border-gray-200.rounded-lg.bg-white.p-8 {
+    padding: 2rem 1rem;
+  }
+
+  /* Adjust icon size */
+  .w-16.h-16 {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+
+  .w-8.h-8 {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  button {
+    display: none;
+  }
+
+  tbody tr:hover {
+    background-color: transparent !important;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

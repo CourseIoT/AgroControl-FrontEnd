@@ -1,0 +1,90 @@
+<mat-card class="!m-5 !rounded-lg !shadow-lg !overflow-hidden">
+  <img
+    mat-card-image
+    [src]="product.photoUrl !== ''  && product.photoUrl !== 'string' ? product.photoUrl : 'https://th.bing.com/th/id/OIP.HBh4qLAGWTtaaoTj-F3ySgHaHa?rs=1&pid=ImgDetMain'"
+    [alt]="product.name"
+    class="!w-full !h-auto !max-h-52 !object-cover"
+  />
+  <mat-card-content class="!p-4 !bg-white">
+    <p class="!text-2xl !font-bold !mb-2">{{ product.name }}</p>
+    <p *ngIf="showField === 1" class="!text-gray-700 !text-sm">{{ 'products.quantityPerUnit' | translate }}: {{ product.quantityPerUnit }}</p>
+    <p class="!text-lg !font-bold !text-green-600">{{ 'products.price' | translate }}: ${{ product.unitPrice }}</p>
+    <p class="!text-gray-500 !text-sm">{{ 'products.available' | translate }}: {{ product.quantity }}</p>
+  </mat-card-content>
+  <mat-card-actions class="!p-4 !flex !justify-center">
+    <button
+      mat-button
+      *ngIf="showField === 1"
+      (click)="editProduct()"
+      class="!text-green-600 !font-bold"
+    >
+      {{ 'shared.edit' | translate }}
+    </button>
+    <button
+      mat-button
+      *ngIf="showField === 2"
+      (click)="showPopUp = true"
+      class="!text-green-600 !font-bold"
+    >
+      {{ 'products.buy' | translate }}
+    </button>
+
+    <button
+      *ngIf="showField === 0"
+      class="bg-primary px-5 py-3 text-white font-semibold uppercase rounded-lg shadow-md hover:bg-primary-hover disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 ease-in-out"
+      [routerLink]="'/store'">Go to Store</button>
+  </mat-card-actions>
+</mat-card>
+
+<div
+  *ngIf="showPopUp"
+  class="!fixed !inset-0 !bg-black !bg-opacity-30 !flex !items-center !justify-center !z-50"
+  (close)="closePopup()"
+>
+  <div
+    class="!bg-white !max-w-4xl !max-h-[80vh] !overflow-y-auto !p-6 !relative !rounded-lg !shadow-lg"
+  >
+    <button
+      (click)="closePopup()"
+      class="!absolute !top-2 !right-2 !bg-red-500 !text-white !rounded-full !w-8 !h-8 !flex !items-center !justify-center !text-lg !hover:bg-red-600 !focus:outline-none !focus:ring-2 !focus:ring-red-400"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+
+    <form #productForm="ngForm" class="!flex !flex-col !gap-4">
+      <mat-form-field appearance="fill" class="!w-full">
+        <mat-label>{{ 'resources.name' | translate }}</mat-label>
+        <p class="!m-0 !p-2 !text-gray-700 !font-medium">{{ product.name }}</p>
+        <input
+          matInput
+          name="productId"
+          [(ngModel)]="product.id"
+          hidden="hidden"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="!w-full">
+        <mat-label>{{ 'products.productQuantity' | translate }}</mat-label>
+        <input
+          matInput
+          type="number"
+          min="1"
+          placeholder="Quantity"
+          name="quantityProduct"
+          [(ngModel)]="item.quantityProduct"
+          required
+        />
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="buyProduct()"
+        [disabled]="productForm.invalid"
+        class="!font-bold"
+      >
+        {{ 'products.buy' | translate }}
+      </button>
+    </form>
+  </div>
+</div>

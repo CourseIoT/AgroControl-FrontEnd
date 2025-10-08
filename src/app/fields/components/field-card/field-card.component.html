@@ -1,0 +1,66 @@
+<!-- Field Card usando Material Design -->
+<mat-card
+  class="!border !border-gray-200 !rounded-lg !shadow-md hover:!shadow-xl !transition-all !duration-300 overflow-hidden h-full flex flex-col"
+  appearance="outlined">
+
+  <!-- Imagen del campo con cursor pointer -->
+  <div class="relative cursor-pointer overflow-hidden" (click)="goToHome(field.id)">
+    <img
+      mat-card-image
+      [src]="'/assets/img/fields1.png'"
+      [alt]="field.fieldName"
+      class="!m-0 h-48 w-full object-cover transition-transform duration-300 hover:scale-110">
+
+    <!-- Badge de estado (opcional) -->
+    <div class="absolute top-3 right-3 bg-green-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-md">
+      Active
+    </div>
+  </div>
+
+  <!-- Contenido de la card -->
+  <mat-card-content class="!p-4 flex-1">
+    <h3 class="!text-lg !font-bold !text-gray-900 !mb-3 !mt-0">
+      {{ 'fields.fieldName' | translate }}: {{ field.fieldName }}
+    </h3>
+
+    <div class="space-y-2">
+      <p class="!text-sm !text-gray-600 !m-0">
+        <span class="font-medium text-gray-900">{{ 'fields.landSize' | translate }}:</span>
+        {{ field.size }}
+      </p>
+      <p class="!text-sm !text-gray-600 !m-0">
+        <span class="font-medium text-gray-900">{{ 'fields.location' | translate }}:</span>
+        {{ field.location }}
+      </p>
+    </div>
+  </mat-card-content>
+
+  <!-- Botones de acción -->
+  <mat-card-actions class="!p-4 !pt-3 !border-t !border-gray-100 !mt-auto flex gap-3">
+    <button
+      class="flex-1 !bg-green-600 !text-white !rounded-lg !font-semibold !py-2 !px-4 hover:!bg-green-700 !transition-all !duration-200 !shadow-sm"
+      mat-button
+      (click)="openModal()">
+      {{ 'shared.edit' | translate }}:
+    </button>
+
+    <!-- Botón eliminar (oculto pero disponible) -->
+    <button
+      *ngIf="false"
+      class="!bg-red-50 !text-red-600 !rounded-lg !font-semibold !py-2 !px-3 hover:!bg-red-600 hover:!text-white !transition-all !duration-200 !shadow-sm"
+      mat-button
+      (click)="onFieldDeleted(field.id)">
+      <mat-icon class="!w-5 !h-5">delete</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>
+
+<!-- Modal de edición -->
+<app-field-form
+  *ngIf="isModalOpen"
+  [fieldId]="field.id"
+  [currentUserId]="field.producerId"
+  [isModalOpen]="isModalOpen"
+  (close)="closeModal()"
+  (success)="onEditSuccess()">
+</app-field-form>

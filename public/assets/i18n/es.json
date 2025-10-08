@@ -1,0 +1,85 @@
+{
+  "shared":{
+    "date": "Fecha",
+    "confirm": "Confirmar",
+    "cancel": "Cancelar",
+    "upcoming": "Próximo",
+    "start": "Iniciar",
+    "finish": "Finalizar",
+    "select": "Seleccionar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "add": "Agregar",
+    "return": "Volver"
+  },
+  "users": {
+    "fullName": "Nombre Completo",
+    "documentNumber": "Número de Documento",
+    "city": "Ciudad",
+    "country": "País",
+    "phone": "Teléfono",
+    "companyName": "Nombre de la Empresa"
+  },
+  "agriculturalProcess": {
+    "plantType": "Tipo de Planta",
+    "quantityPlanted": "Cantidad Plantada",
+    "hoursIrrigated": "Horas de Riego",
+    "type": "Tipo",
+    "quantityHarvested": "Cantidad Cosechada en Kg",
+    "pricePerKg": "Precio por Kg",
+    "status": "Estado",
+    "workersTotalCost": "Costo Total de Trabajadores",
+    "resources": "Recursos"
+  },
+  "agriculturalActivity": {
+    "cropTreatmentHistory": "Historial de Tratamiento de Cultivos",
+    "addCropTreatment": "Agregar Tratamiento de Cultivo",
+    "harvestHistory": "Historial de Cosecha",
+    "addHarvest": "Agregar Cosecha",
+    "irrigationHistory": "Historial de Riego",
+    "addIrrigation": "Agregar Riego"
+  },
+  "resources": {
+    "products": "Productos",
+    "workers": "Trabajadores",
+    "description": "Descripción",
+    "cost": "Costo",
+    "quantity": "Cantidad",
+    "addResource": "Agregar Recurso",
+    "removeResource": "Eliminar Recurso",
+    "submitAll": "Enviar Todo",
+    "name": "Nombre",
+    "salesHistory": "Historial de Ventas"
+  },
+  "finances": {
+    "totalIncome": "Ingreso Total",
+    "totalExpenses": "Gasto Total",
+    "totalProfit": "Ganancia Total",
+    "amount": "Cantidad",
+    "financeHistory": "Historial Financiero",
+    "total": "Total"
+  },
+  "workers": {
+    "manageWorkers": "Administrar Trabajadores",
+    "addWorker": "Agregar Trabajador"
+  },
+  "fields": {
+    "fieldName": "Nombre del Campo",
+    "landSize": "Tamaño del Terreno",
+    "location": "Ubicación",
+    "myFields": "Mis Campos",
+    "fieldMessage": "Aquí puedes ver y administrar tus campos."
+  },
+  "products": {
+    "product": "Producto",
+    "quantityPerUnit": "Cantidad por Unidad",
+    "price": "Precio",
+    "available": "Disponible",
+    "productQuantity": "Cantidad de Producto",
+    "buy": "Comprar",
+    "buyer": "Comprador",
+    "imageURL": "URL de la Imagen",
+    "addProduct": "Agregar Producto",
+    "productStore": "Tienda de Productos"
+  }
+}
