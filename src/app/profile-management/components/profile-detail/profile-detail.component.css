@@ -1,0 +1,139 @@
+.card-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.card ::ng-deep .mat-mdc-card-header {
+  background: linear-gradient(135deg, #1e4d4d 0%, #2d6a6a 100%);
+  padding: 1.5rem !important;
+  display: block !important;
+}
+
+.card ::ng-deep .mat-mdc-card-title {
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+  color: white !important;
+  text-align: center;
+  margin: 0 !important;
+  border-bottom: 3px solid #7fb539;
+  padding-bottom: 0.75rem;
+  letter-spacing: 0.5px;
+}
+
+.card ::ng-deep mat-card-content {
+  padding: 2rem;
+  background: white;
+}
+
+.card__content {
+  padding: 0;
+}
+
+.card__content p {
+  margin: 0 0 1.25rem 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: #f9fafb;
+  border-radius: 8px;
+  border-left: 4px solid #7fb539;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.card__content p:last-child {
+  margin-bottom: 0;
+}
+
+.card__content p:hover {
+  background: #f3f4f6;
+  transform: translateX(4px);
+}
+
+.card__content strong {
+  color: #1e4d4d;
+  font-weight: 600;
+  min-width: 140px;
+  display: inline-block;
+  position: relative;
+  padding-left: 1rem;
+}
+
+.card__content strong::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  background: #7fb539;
+  border-radius: 50%;
+}
+
+/* Animación de entrada */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+.card__content p {
+  animation: fadeInUp 0.5s ease-out backwards;
+}
+
+.card__content p:nth-child(1) { animation-delay: 0.1s; }
+.card__content p:nth-child(2) { animation-delay: 0.15s; }
+.card__content p:nth-child(3) { animation-delay: 0.2s; }
+.card__content p:nth-child(4) { animation-delay: 0.25s; }
+.card__content p:nth-child(5) { animation-delay: 0.3s; }
+.card__content p:nth-child(6) { animation-delay: 0.35s; }
+.card__content p:nth-child(7) { animation-delay: 0.4s; }
+
+/* Responsive */
+@media (max-width: 640px) {
+  .card ::ng-deep mat-card-content {
+    padding: 1.5rem;
+  }
+
+  .card ::ng-deep .mat-mdc-card-title {
+    font-size: 1.25rem !important;
+  }
+
+  .card__content p {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .card__content strong {
+    min-width: auto;
+    margin-bottom: 0.25rem;
+  }
+}

@@ -1,0 +1,11 @@
+<div class="flex flex-col items-center p-4 bg-white rounded-lg">
+  <h2 class="!text-center !text-3xl !font-bold !text-gray-800 !mb-6">
+   Select the Date
+  </h2>
+  <mat-card class="w-full max-w-md mb-4">
+    <mat-calendar [(selected)]="selected" (selectedChange)="onDateChange($event)"></mat-calendar>
+  </mat-card>
+  <!--<p class="text-lg font-semibold text-gray-700">
+    Selected date: <span class="font-bold">{{ getFormattedDate() }}</span>
+  </p> -->
+</div>

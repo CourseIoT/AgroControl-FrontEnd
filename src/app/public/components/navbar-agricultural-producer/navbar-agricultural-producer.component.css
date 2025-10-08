@@ -1,0 +1,51 @@
+/* ALTURA Y CENTRADO DEL TOOLBAR */
+.agc-toolbar{
+  background:#073C3C;
+  color:#fff;
+  height:64px;                  /* > 56px para que quepan iconos grandes */
+  display:flex;
+  align-items:center;
+  position:sticky; top:0; z-index:1000;
+}
+
+/* CONTENEDOR PEGADO A LOS BORDES */
+.agc-container{ display:flex; justify-content:space-between; align-items:center; width:100%; }
+.agc-container--flush{ padding:0 8px; }
+
+/* LOGO */
+.agc-brand{ font-weight:800; font-size:20px; text-decoration:none; }
+.agc-brand-agro{ color:#fff; } .agc-brand-control{ color:#39A935; }
+
+/* ===== ICON BUTTONS (Angular Material MDC) ===== */
+
+/* Tamaño del botón e ícono usando variables MDC */
+.agc-toolbar .mat-mdc-icon-button{
+  --mdc-icon-button-size: 48px;
+  --mdc-icon-button-icon-size: 28px;
+  color:#fff;
+}
+
+/* Fallback por si tu build no respeta las vars (o por Tailwind reset) */
+.agc-toolbar .mat-mdc-icon-button,
+.agc-toolbar .mat-mdc-icon-button .mat-mdc-button-touch-target{
+  width:48px; height:48px;
+}
+
+.agc-toolbar .mat-mdc-icon-button .mat-icon{
+  font-size:28px;
+  width:28px; height:28px;
+  line-height:1;                  /* ← CLAVE: evita el recorte */
+  color:#fff !important;
+}
+
+/* Badge como puntito */
+.agc-badge-dot .mat-badge-content{
+  width:8px; height:8px; min-width:8px; line-height:8px; padding:0;
+  border:2px solid #073C3C;
+}
+
+/* Espaciados laterales */
+.agc-left, .agc-right{ display:flex; align-items:center; gap:10px; }
+
+/* Responsive */
+@media (max-width:640px){ .agc-hide-sm{ display:none !important; } }

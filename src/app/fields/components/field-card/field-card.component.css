@@ -1,0 +1,70 @@
+/* Override Material Card styles */
+::ng-deep mat-card {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+}
+
+/* Asegurar que el contenido se expanda */
+::ng-deep mat-card-content {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* Imagen responsive */
+::ng-deep mat-card img {
+  margin: 0 !important;
+  width: 100% !important;
+}
+
+/* Botones con ancho completo en móvil */
+@media (max-width: 640px) {
+  ::ng-deep mat-card-actions {
+    flex-direction: column !important;
+  }
+
+  ::ng-deep mat-card-actions button {
+    width: 100% !important;
+  }
+}
+
+/* Animación suave al cargar */
+:host {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hover effect en toda la card */
+mat-card {
+  cursor: default;
+  transition: all 0.3s ease;
+}
+
+mat-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Estado activo del badge */
+.badge-active {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}

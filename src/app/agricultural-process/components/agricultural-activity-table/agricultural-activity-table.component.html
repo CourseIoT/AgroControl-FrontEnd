@@ -1,0 +1,113 @@
+<mat-form-field>
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+</mat-form-field>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef class="!text-center !text-gray-400"> ID </th>
+    <td mat-cell *matCellDef="let element" class="!text-center !font-semibold"> {{element.id}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="date">
+    <th mat-header-cell *matHeaderCellDef class="!text-center !text-gray-400"> {{ 'shared.date' | translate }} </th>
+    <td mat-cell *matCellDef="let element" class="!text-center !font-semibold !text-nowrap"> {{element.date}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="activityStatus">
+    <th mat-header-cell *matHeaderCellDef class="!text-center !text-gray-400"> {{ 'agriculturalProcess.status' | translate }} </th>
+    <td mat-cell *matCellDef="let element" class="!text-center !font-semibold"> {{element.activityStatus}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="workersTotalCost">
+    <th mat-header-cell *matHeaderCellDef class="!text-center !text-gray-400"> {{ 'agriculturalProcess.workersTotalCost' | translate }} </th>
+    <td mat-cell *matCellDef="let element" class="!text-center !font-semibold"> {{element.workersTotalCost}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="hoursIrrigated">
+    <th mat-header-cell *matHeaderCellDef class="!text-center !text-gray-400"> {{ 'agriculturalProcess.hoursIrrigated' | translate }} </th>
+    <td mat-cell *matCellDef="let element" class="!text-center !font-semibold">
+      <ng-container *ngIf="element.hoursIrrigated !== null">
+        {{element.hoursIrrigated}}
+      </ng-container>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="plantType">
+    <th mat-header-cell *matHeaderCellDef class="!text-center !text-gray-400"> {{ 'agriculturalProcess.plantType' | translate }} </th>
+    <td mat-cell *matCellDef="let element" class="!text-center !font-semibold">
+      <ng-container *ngIf="element.plantType !== null">
+        {{element.plantType}}
+      </ng-container>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="quantityPlanted">
+    <th mat-header-cell *matHeaderCellDef class="!text-center !text-gray-400"> {{ 'agriculturalProcess.quantityPlanted' | translate }} </th>
+    <td mat-cell *matCellDef="let element" class="!text-center !font-semibold">
+      <ng-container *ngIf="element.quantityPlanted !== null">
+        {{element.quantityPlanted}}
+      </ng-container>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="treatmentType">
+    <th mat-header-cell *matHeaderCellDef class="!text-center !text-gray-400"> {{ 'agriculturalProcess.type' | translate }} </th>
+    <td mat-cell *matCellDef="let element" class="!text-center !font-semibold">
+      <ng-container *ngIf="element.treatmentType !== null">
+        {{element.treatmentType}}
+      </ng-container>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="pricePerKg">
+    <th mat-header-cell *matHeaderCellDef class="!text-center !text-gray-400"> {{ 'agriculturalProcess.pricePerKg' | translate }} </th>
+    <td mat-cell *matCellDef="let element" class="!text-center !font-semibold">
+      <ng-container *ngIf="element.pricePerKg !== null">
+        {{element.pricePerKg}}
+      </ng-container>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="quantityInKg">
+    <th mat-header-cell *matHeaderCellDef class="!text-center !text-gray-400"> {{ 'agriculturalProcess.quantityHarvested' | translate }} </th>
+    <td mat-cell *matCellDef="let element" class="!text-center !font-semibold">
+      <ng-container *ngIf="element.quantityInKg !== null">
+        {{element.quantityInKg}}
+      </ng-container>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="totalIncome">
+    <th mat-header-cell *matHeaderCellDef class="!text-center !text-gray-400"> {{ 'finances.totalIncome' | translate }} </th>
+    <td mat-cell *matCellDef="let element" class="!text-center !font-semibold">
+      <ng-container *ngIf="element.totalIncome !== null">
+        {{element.totalIncome}}
+      </ng-container>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="resources">
+    <th mat-header-cell *matHeaderCellDef class="!text-center !text-gray-400"> {{ 'agriculturalProcess.resources' | translate }} </th>
+    <td mat-cell *matCellDef="let element" class="!text-center !font-semibold">
+      <button (click)="showPopup(element.resources)" mat-icon-button>
+        <mat-icon>info</mat-icon>
+      </button>
+      <app-resources-table
+        [showTable]="showTable"
+        [dataSource]="selectedResources"
+        (close)="handleClosed($event)"
+      ></app-resources-table>
+    </td>
+  </ng-container>
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  <!-- Row shown when there is no matching data. -->
+  <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+  </tr>
+
+</table>

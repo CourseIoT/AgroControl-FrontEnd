@@ -1,0 +1,115 @@
+<!-- Card Container -->
+<div *ngIf="agriculturalActivity" class="border border-gray-200 rounded-lg shadow-sm bg-white overflow-hidden">
+
+  <!-- Card Header -->
+  <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
+    <h3 class="text-lg font-bold text-gray-900">
+      <span *ngIf="agriculturalActivity.activityType !== 'SEEDING'">{{ 'shared.upcoming' | translate }} </span>
+      {{ agriculturalActivity.activityType }}
+    </h3>
+  </div>
+
+  <!-- Card Content -->
+  <div class="p-4">
+    <div class="flex flex-col md:flex-row gap-6 items-start">
+
+      <!-- Image Section -->
+      <div class="flex-shrink-0">
+        <img
+          *ngIf="agriculturalActivity.activityType === 'SEEDING'"
+          class="w-32 h-32 rounded-lg object-cover shadow-sm"
+          [src]="'https://th.bing.com/th/id/R.7f7e9843f1c861c7a31629799ff3053e?rik=IFmbl8f3y7vq3Q&pid=ImgRaw&r=0'"
+          alt="Seeding image">
+        <img
+          *ngIf="agriculturalActivity.activityType === 'IRRIGATION'"
+          class="w-40 h-28 rounded-lg object-cover shadow-sm"
+          [src]="'https://th.bing.com/th/id/OIP.UJblYuZLSdGUgpti5T6BKQHaFy?rs=1&pid=ImgDetMain'"
+          alt="Irrigation image">
+        <img
+          *ngIf="agriculturalActivity.activityType === 'CROP_TREATMENT'"
+          class="w-32 h-32 rounded-lg object-cover shadow-sm"
+          [src]="'https://th.bing.com/th/id/OIP.6N0TmOnAP_jtGo1XFINP4wAAAA?rs=1&pid=ImgDetMain'"
+          alt="Crop Treatment image">
+        <img
+          *ngIf="agriculturalActivity.activityType === 'HARVEST'"
+          class="w-32 h-32 rounded-lg object-cover shadow-sm"
+          [src]="'https://agraria.pe/imgs/a/lx/necesitamos-que-el-agricultor-llegue-mas-rapido-al-mercado-16456.jpg'"
+          alt="Harvest image">
+      </div>
+
+      <!-- Details Section for SEEDING -->
+      <div *ngIf="agriculturalActivity.activityType === 'SEEDING'" class="flex-1 space-y-3">
+        <div class="flex items-center justify-between py-2 border-b border-gray-100">
+          <span class="text-gray-600 text-sm font-medium">{{ 'agriculturalProcess.plantType' | translate }}:</span>
+          <span class="text-gray-900 font-semibold">{{ agriculturalActivity.plantType }}</span>
+        </div>
+        <div class="flex items-center justify-between py-2">
+          <span class="text-gray-600 text-sm font-medium">{{ 'agriculturalProcess.quantityPlanted' | translate }}:</span>
+          <span class="text-gray-900 font-semibold">{{ agriculturalActivity.quantityPlanted }}</span>
+        </div>
+      </div>
+
+      <!-- Details Section for OTHER ACTIVITIES -->
+      <div *ngIf="agriculturalActivity.activityType !== 'SEEDING'" class="flex-1 space-y-3">
+        <div class="flex items-center justify-between py-2 border-b border-gray-100">
+          <span class="text-gray-600 text-sm font-medium">{{ 'shared.date' | translate }}:</span>
+          <span class="text-gray-900 font-semibold">{{ agriculturalActivity.date }}</span>
+        </div>
+        <div class="flex items-center justify-between py-2">
+          <span class="text-gray-600 text-sm font-medium">{{ 'agriculturalProcess.status' | translate }}:</span>
+          <span
+            class="px-3 py-1 rounded-full text-xs font-bold uppercase"
+            [ngClass]="{
+              'bg-gray-500 text-white': agriculturalActivity.activityStatus === 'NOT_STARTED',
+              'bg-yellow-500 text-white': agriculturalActivity.activityStatus === 'IN_PROGRESS',
+              'bg-green-500 text-white': agriculturalActivity.activityStatus === 'FINISHED',
+              'bg-red-500 text-white': agriculturalActivity.activityStatus === 'CANCELLED'
+            }">
+            {{ agriculturalActivity.activityStatus }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div *ngIf="agriculturalActivity.activityType !== 'SEEDING'" class="flex flex-wrap justify-end gap-3 mt-6 pt-4 border-t border-gray-100">
+      <!-- Start Button -->
+      <button
+        *ngIf="agriculturalActivity.activityStatus === 'NOT_STARTED'"
+        (click)="executeActivity(agriculturalActivity.id, agriculturalProcessId, 'start')"
+        class="flex items-center gap-2 bg-green-600 px-4 py-2 text-white text-sm font-semibold uppercase rounded-lg shadow-sm transition-all duration-200 hover:bg-green-700 hover:shadow-md transform hover:-translate-y-0.5">
+        <mat-icon class="!text-base !w-5 !h-5">play_arrow</mat-icon>
+        {{ 'shared.start' | translate }}
+      </button>
+
+      <!-- Finish Button -->
+      <button
+        *ngIf="agriculturalActivity.activityStatus === 'IN_PROGRESS'"
+        (click)="executeActivity(agriculturalActivity.id, agriculturalProcessId, 'finish')"
+        class="flex items-center gap-2 bg-blue-600 px-4 py-2 text-white text-sm font-semibold uppercase rounded-lg shadow-sm transition-all duration-200 hover:bg-blue-700 hover:shadow-md transform hover:-translate-y-0.5">
+        <mat-icon class="!text-base !w-5 !h-5">check_circle</mat-icon>
+        {{ 'shared.finish' | translate }}
+      </button>
+
+      <!-- Cancel Button -->
+      <button
+        *ngIf="agriculturalActivity.activityStatus === 'IN_PROGRESS'"
+        (click)="executeActivity(agriculturalActivity.id, agriculturalProcessId, 'cancel')"
+        class="flex items-center gap-2 bg-red-600 px-4 py-2 text-white text-sm font-semibold uppercase rounded-lg shadow-sm transition-all duration-200 hover:bg-red-700 hover:shadow-md transform hover:-translate-y-0.5">
+        <mat-icon class="!text-base !w-5 !h-5">cancel</mat-icon>
+        {{ 'shared.cancel' | translate }}
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- No Data State -->
+<div *ngIf="!agriculturalActivity" class="border border-gray-200 rounded-lg bg-white p-8">
+  <div class="flex flex-col items-center justify-center text-center">
+    <svg class="w-16 h-16 text-gray-300 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+    </svg>
+    <p class="text-gray-500 font-medium">No data available</p>
+    <p class="text-gray-400 text-sm mt-1">No activities scheduled yet</p>
+  </div>
+</div>

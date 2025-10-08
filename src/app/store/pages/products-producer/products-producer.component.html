@@ -1,0 +1,9 @@
+<h2 class="text-center text-3xl font-semibold mt-4">Products</h2>
+<app-products-list
+  [products]="products"
+  [showField]="0"
+  (edit)="openFormForEdit($event)"
+  class="mt-4"
+/>
+
+<p *ngIf="message" class="text-center text-red-500 mt-4">{{ message }} </p>

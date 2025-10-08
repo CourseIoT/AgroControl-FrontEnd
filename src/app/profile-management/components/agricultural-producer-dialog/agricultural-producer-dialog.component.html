@@ -1,0 +1,15 @@
+<div class="flex flex-col items-center p-6 sm:p-8 max-w-sm mx-auto bg-white rounded-lg shadow-lg">
+  <div class="flex items-center justify-center w-16 h-16  mb-4">
+    <img ngSrc="/assets/img/alert-icon.svg" height="64" width="64" alt="alert image">
+  </div>
+  <p class="text-center text-gray-800 text-base sm:text-lg font-semibold mb-4">
+    The email, phone number or DNI is already registered
+  </p>
+  <button
+    mat-stroked-button
+    class="w-full  text-white py-2 rounded hover:bg-gray-400 transition duration-300"
+    (click)="closeDialog()"
+  >
+    Accept
+  </button>
+</div>

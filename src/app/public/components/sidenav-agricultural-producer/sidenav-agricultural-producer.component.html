@@ -1,0 +1,78 @@
+<aside class="agc-sidenav" role="navigation">
+  <!-- Header -->
+  <div class="agc-sidenav-header">
+    <div class="agc-sidenav-logo">
+      <mat-icon class="logo-icon">agriculture</mat-icon>
+      <span class="logo-text">
+        <span class="logo-agro">Agro</span><span class="logo-control">Control</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- ===== Menú Agricultor ===== -->
+  <nav class="agc-sidenav-nav" *ngIf="isProducer()">
+    <a [routerLink]="['/home-agricultural-process', agriculturalProcessId]"
+       routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+       class="nav-item" matRipple>
+      <mat-icon class="nav-icon">home</mat-icon><span class="nav-text">Home</span>
+    </a>
+
+    <a [routerLink]="['/fields']" routerLinkActive="active" class="nav-item" matRipple>
+      <mat-icon class="nav-icon">landscape</mat-icon><span class="nav-text">Your Fields</span>
+    </a>
+
+    <a [routerLink]="['/Irrigation-history']" routerLinkActive="active" class="nav-item" matRipple>
+      <mat-icon class="nav-icon">water_drop</mat-icon><span class="nav-text">Irrigation</span>
+    </a>
+
+    <a [routerLink]="['/CropTreatment-history']" routerLinkActive="active" class="nav-item" matRipple>
+      <mat-icon class="nav-icon">science</mat-icon><span class="nav-text">Crop Treatment</span>
+    </a>
+
+    <a [routerLink]="['/Harvest-history']" routerLinkActive="active" class="nav-item" matRipple>
+      <mat-icon class="nav-icon">grass</mat-icon><span class="nav-text">Harvest</span>
+    </a>
+
+    <a [routerLink]="['/finance-view']" routerLinkActive="active" class="nav-item" matRipple>
+      <mat-icon class="nav-icon">account_balance_wallet</mat-icon><span class="nav-text">Finances</span>
+    </a>
+
+    <a [routerLink]="['/products-inventory']" routerLinkActive="active" class="nav-item" matRipple>
+      <mat-icon class="nav-icon">inventory_2</mat-icon><span class="nav-text">Your Products</span>
+    </a>
+
+    <a [routerLink]="['/store']" routerLinkActive="active" class="nav-item" matRipple>
+      <mat-icon class="nav-icon">store</mat-icon><span class="nav-text">Store</span>
+    </a>
+  </nav>
+
+  <!-- ===== Menú Distribuidor ===== -->
+  <nav class="agc-sidenav-nav" *ngIf="isDistributor()">
+    <a [routerLink]="['/home-distributor', userId]" routerLinkActive="active"
+       [routerLinkActiveOptions]="{exact:true}" class="nav-item" matRipple>
+      <mat-icon class="nav-icon">home</mat-icon><span class="nav-text">Home</span>
+    </a>
+
+    <a [routerLink]="['/home-distributor', userId, 'your-products']"
+       routerLinkActive="active" class="nav-item" matRipple>
+      <mat-icon class="nav-icon">inventory_2</mat-icon><span class="nav-text">Your Products</span>
+    </a>
+
+    <a [routerLink]="['/home-distributor', userId, 'sale-history']"
+       routerLinkActive="active" class="nav-item" matRipple>
+      <mat-icon class="nav-icon">receipt_long</mat-icon><span class="nav-text">Sale History</span>
+    </a>
+
+    <a [routerLink]="['/home-distributor', userId, 'profile-distributor', userId]"
+       routerLinkActive="active" class="nav-item" matRipple>
+      <mat-icon class="nav-icon">account_circle</mat-icon><span class="nav-text">Profile</span>
+    </a>
+  </nav>
+
+  <!-- Footer -->
+  <div class="agc-sidenav-footer">
+    <button class="nav-item logout-btn" matRipple (click)="logOut()">
+      <mat-icon class="nav-icon">logout</mat-icon><span class="nav-text">Log Out</span>
+    </button>
+  </div>
+</aside>

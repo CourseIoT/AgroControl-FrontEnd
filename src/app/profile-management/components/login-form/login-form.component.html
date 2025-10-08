@@ -1,0 +1,50 @@
+<div class="flex min-h-screen bg-white">
+  <div class="w-full md:w-1/2 flex flex-col justify-center items-center p-8">
+    <h1 class="text-3xl font-bold mb-6 text-green-700">Welcome to <span class="text-green-600">AgroControl</span></h1>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="w-full max-w-sm">
+      <!-- Email Field -->
+      <mat-form-field class="w-full">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="Enter your email" formControlName="email" />
+        <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+          Email is <strong>required</strong>.
+        </mat-error>
+        <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
+          Please enter a valid email.
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Password Field -->
+      <mat-form-field class="w-full mt-4 ">
+        <mat-label>Password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" />
+        <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+          Password is <strong>required</strong>.
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Create Account Button -->
+      <button mat-stroked-button class="w-full !bg-white !text-black !mt-6 !border-4 !border-black" type="submit">Sign in</button>
+
+
+      <!-- Remember Me and Forgot Password Links -->
+      <div class="flex items-center justify-between mt-4">
+        <mat-checkbox class="!text-sm">Remember me for 30 days</mat-checkbox>
+        <a href="#" class="text-sm text-blue-600">Forgot Password?</a>
+      </div>
+
+      <!-- Log in link -->
+      <p class="mt-6 text-center text-sm">Don't have an account yet? <a routerLink="/register" class="text-blue-500">Sign up</a></p>
+    </form>
+  </div>
+
+  <!-- Image Section -->
+  <div class="hidden md:block md:w-1/2 h-screen">
+    <img ngSrc="/assets/img/field-login.jpg" alt="Field Image" class="w-[820px] h-[1059px] object-cover mx-auto md:w-full md:h-full" height="420"
+         width="420" priority />
+  </div>
+</div>

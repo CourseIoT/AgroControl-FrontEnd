@@ -1,0 +1,20 @@
+<div class="card-container">
+  <mat-card class="card card--producer">
+    <mat-card-header>
+      <mat-card-title class="card__title">
+        {{ profile.dni ? 'Agricultural Producer' : 'Distributor' }}
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="card__content">
+        <p><strong>{{ 'users.fullName' | translate }}:</strong> {{ profile.fullName }}</p>
+        <p><strong>{{ 'users.city' | translate }}:</strong> {{ profile.city }}</p>
+        <p><strong>{{ 'users.country' | translate }}:</strong> {{ profile.country }}</p>
+        <p><strong>{{ 'users.phone' | translate }}:</strong> {{ profile.phone }}</p>
+        <p *ngIf="profile.dni"><strong>DNI:</strong> {{ profile.dni }}</p>
+        <p *ngIf="profile.companyName"><strong>{{ 'users.companyName' | translate }}:</strong> {{ profile.companyName }}</p>
+        <p *ngIf="profile.ruc"><strong>RUC:</strong> {{ profile.ruc }}</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

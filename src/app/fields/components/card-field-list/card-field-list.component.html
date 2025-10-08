@@ -1,0 +1,87 @@
+<!-- Mensaje de Error (si existe y hay fields) -->
+<div *ngIf="message && fields.length > 0" class="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+  <div class="flex items-center gap-3">
+    <svg class="w-6 h-6 text-yellow-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+    </svg>
+    <span class="text-yellow-700 font-medium">{{ message }}</span>
+  </div>
+</div>
+
+<!-- Grid de Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+
+  <!-- Field Cards existentes -->
+  <app-field-card
+    *ngFor="let field of fields"
+    [field]="field"
+    (deleteField)="reload()"
+    (editField)="onFieldEdited()">
+  </app-field-card>
+
+  <!-- Tarjeta para Agregar Campo (siempre visible si hay fields) -->
+  <div
+    *ngIf="fields.length > 0"
+    (click)="openModal()"
+    class="group bg-white border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-green-500 hover:bg-green-50 transition-all duration-200 aspect-[3/4]">
+
+    <!-- Icono circular -->
+    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4 group-hover:bg-green-600 transition-all duration-200">
+      <svg class="w-8 h-8 text-green-600 group-hover:text-white transition-all duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+      </svg>
+    </div>
+
+    <!-- Texto -->
+    <p class="text-gray-600 font-semibold group-hover:text-green-700 transition-all duration-200 text-center">
+      Add New Field
+    </p>
+  </div>
+</div>
+
+<!-- Estado Vacío (cuando NO hay fields) -->
+<div *ngIf="fields.length === 0" class="mt-12 text-center py-12">
+
+  <!-- Icono grande -->
+  <div class="inline-flex items-center justify-center w-20 h-20 bg-gray-100 rounded-full mb-6">
+    <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+    </svg>
+  </div>
+
+  <!-- Mensajes -->
+  <h3 class="text-xl font-semibold text-gray-900 mb-2">
+    No fields yet
+  </h3>
+  <p class="text-gray-500 mb-6 max-w-md mx-auto">
+    Start by adding your first field to manage your agricultural activities
+  </p>
+
+  <!-- Botón CTA -->
+  <button
+    (click)="openModal()"
+    class="inline-flex items-center gap-2 bg-green-600 px-6 py-3 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition-all duration-200 transform hover:-translate-y-0.5 hover:shadow-lg">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+    </svg>
+    Create Your First Field
+  </button>
+</div>
+
+<!-- Modal de Formulario para Agregar -->
+<app-field-form
+  *ngIf="isModalOpen"
+  [currentUserId]="currentUserId"
+  [isModalOpen]="isModalOpen"
+  (close)="closeModal()"
+  (success)="onFieldAdded()">
+</app-field-form>
+
+<!-- Modal de Formulario para Editar -->
+<app-field-form-edit
+  *ngIf="isEditModalOpen"
+  [fieldId]="selectedFieldId"
+  [isModalOpen]="isEditModalOpen"
+  (close)="closeEditModal()"
+  (success)="onFieldEdited()">
+</app-field-form-edit>

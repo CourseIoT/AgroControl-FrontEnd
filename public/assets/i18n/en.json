@@ -1,0 +1,85 @@
+{
+  "shared":{
+    "date": "Date",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "upcoming": "Upcoming",
+    "start": "Start",
+    "finish": "Finish",
+    "select": "Select",
+    "edit": "Edit",
+    "delete": "Delete",
+    "add": "Add",
+    "return": "Return"
+  },
+  "users": {
+    "fullName": "Full Name",
+    "documentNumber": "Document Number",
+    "city": "City",
+    "country": "Country",
+    "phone": "Phone",
+    "companyName": "Company Name"
+  },
+  "agriculturalProcess": {
+    "plantType": "Plant Type",
+    "quantityPlanted": "Quantity Planted",
+    "hoursIrrigated": "Hours Irrigated",
+    "type": "Type",
+    "quantityHarvested": "Quantity Harvested In Kg",
+    "pricePerKg": "Price Per Kg",
+    "status": "Status",
+    "workersTotalCost": "Workers Total Cost",
+    "resources": "Resources"
+  },
+  "agriculturalActivity": {
+    "cropTreatmentHistory": "Crop Treatment History",
+    "addCropTreatment": "Add Crop Treatment",
+    "harvestHistory": "Harvest History",
+    "addHarvest": "Add Harvest",
+    "irrigationHistory": "Irrigation History",
+    "addIrrigation": "Add Irrigation"
+  },
+  "resources": {
+    "products": "Products",
+    "workers": "Workers",
+    "description": "Description",
+    "cost": "Cost",
+    "quantity": "Quantity",
+    "addResource": "Add Resource",
+    "removeResource": "Remove Resource",
+    "submitAll": "Submit All",
+    "name": "Name",
+    "salesHistory": "Sales History"
+  },
+  "finances": {
+    "totalIncome": "Total Income",
+    "totalExpenses": "Total Expenses",
+    "totalProfit": "Total Profit",
+    "amount": "Amount",
+    "financeHistory": "Finance History",
+    "total": "Total"
+  },
+  "workers": {
+    "manageWorkers": "Manage Workers",
+    "addWorker": "Add Worker"
+  },
+  "fields": {
+    "fieldName": "Field Name",
+    "landSize": "Land Size",
+    "location": "Location",
+    "myFields": "My Fields",
+    "fieldMessage": "Here you can view and manage your fields."
+  },
+  "products": {
+    "product": "Product",
+    "quantityPerUnit": "Quantity Per Unit",
+    "price": "Price",
+    "available": "Available",
+    "productQuantity": "Product Quantity",
+    "buy": "Buy",
+    "buyer": "Buyer",
+    "imageURL": "Image URL",
+    "addProduct": "Add Product",
+    "productStore": "Products Store"
+  }
+}

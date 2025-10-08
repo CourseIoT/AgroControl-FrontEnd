@@ -1,0 +1,33 @@
+<div class="payment-form">
+  <h1 class="payment-form__title">Payment Details</h1>
+  <form>
+    <mat-form-field class="payment-form__group" appearance="fill">
+      <mat-label>Cardholder Name</mat-label>
+      <input matInput placeholder="John Doe" id="cardholder">
+    </mat-form-field>
+
+    <mat-form-field class="payment-form__group" appearance="fill">
+      <mat-label>Card Number</mat-label>
+      <input matInput placeholder="1234 5678 9012 3456" id="cardnumber">
+    </mat-form-field>
+
+    <div class="payment-form__group payment-form__group--small">
+      <mat-form-field class="payment-form__item" appearance="fill">
+        <mat-label>Expiry Date</mat-label>
+        <input matInput [matDatepicker]="picker" id="expiry">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field class="payment-form__item" appearance="fill">
+        <mat-label>CVV</mat-label>
+        <input matInput placeholder="x x x" id="cvv">
+      </mat-form-field>
+    </div>
+
+    <div class="payment-form__actions">
+      <button mat-button class="custom-button button--secondary">Change Plan</button>
+      <button mat-button class="custom-button button--primary">Pay</button>
+    </div>
+  </form>
+</div>

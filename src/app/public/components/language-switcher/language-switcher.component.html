@@ -1,0 +1,15 @@
+<div class="lang-switcher">
+  @for(language of languages; track language.code) {
+    <button
+      class="lang-btn"
+      [class.active]="currentLang === language.code"
+      (click)="useLanguage(language.code)"
+      [attr.aria-label]="'Switch to ' + language.label"
+      matRipple>
+      <span class="lang-text">{{ language.label }}</span>
+      @if(currentLang === language.code) {
+        <span class="active-indicator"></span>
+      }
+    </button>
+  }
+</div>
