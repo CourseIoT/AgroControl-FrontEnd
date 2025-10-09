@@ -1,8 +1,11 @@
 {
-  "shared":{
+  "shared": {
     "date": "Date",
     "confirm": "Confirm",
+    "confirmed": "Confirmed",
     "cancel": "Cancel",
+    "cancelled": "Cancelled",
+    "failed": "Failed",
     "upcoming": "Upcoming",
     "start": "Start",
     "finish": "Finish",
@@ -10,7 +13,24 @@
     "edit": "Edit",
     "delete": "Delete",
     "add": "Add",
-    "return": "Return"
+    "return": "Return",
+    "loading": "Loading...",
+    "error": "Error",
+    "retry": "Retry",
+    "noData": "No data available",
+    "close": "Close",
+    "filter": "Filter",
+    "filterPlaceholder": "Ex. irrigation",
+    "viewDetails": "View details",
+    "noDataMatchingFilter": "No data matching the filter",
+    "notStarted": "Not Started",
+    "pending": "Pending",
+    "inProgress": "In Progress",
+    "completed": "Completed",
+    "search": "Search",
+    "searchPlaceholder": "Search...",
+    "all": "All",
+    "actions": "Actions"
   },
   "users": {
     "fullName": "Full Name",
@@ -23,12 +43,12 @@
   "agriculturalProcess": {
     "plantType": "Plant Type",
     "quantityPlanted": "Quantity Planted",
-    "hoursIrrigated": "Hours Irrigated",
+    "hoursIrrigated": "Irrigation Hours",
     "type": "Type",
-    "quantityHarvested": "Quantity Harvested In Kg",
-    "pricePerKg": "Price Per Kg",
+    "quantityHarvested": "Quantity Harvested",
+    "pricePerKg": "Price per Kg",
     "status": "Status",
-    "workersTotalCost": "Workers Total Cost",
+    "workersTotalCost": "Total Workers Cost",
     "resources": "Resources"
   },
   "agriculturalActivity": {
@@ -37,7 +57,13 @@
     "harvestHistory": "Harvest History",
     "addHarvest": "Add Harvest",
     "irrigationHistory": "Irrigation History",
-    "addIrrigation": "Add Irrigation"
+    "addIrrigation": "Add Irrigation",
+    "noIrrigationActivities": "No irrigation activities registered yet",
+    "addFirstIrrigation": "Add first irrigation activity",
+    "noCropTreatmentActivities": "No crop treatment activities registered yet",
+    "addFirstCropTreatment": "Add first crop treatment activity",
+    "noHarvestActivities": "No harvest activities registered yet",
+    "addFirstHarvest": "Add first harvest activity"
   },
   "resources": {
     "products": "Products",
@@ -49,15 +75,24 @@
     "removeResource": "Remove Resource",
     "submitAll": "Submit All",
     "name": "Name",
-    "salesHistory": "Sales History"
+    "salesHistory": "Sales History",
+    "title": "Resources Used",
+    "subtotal": "Subtotal",
+    "totalItems": "Total Items",
+    "totalCost": "Total Cost",
+    "totalQuantity": "Total Quantity",
+    "noResources": "No resources available"
   },
   "finances": {
     "totalIncome": "Total Income",
     "totalExpenses": "Total Expenses",
-    "totalProfit": "Total Profit",
+    "totalProfit": "Net Balance",
     "amount": "Amount",
     "financeHistory": "Finance History",
-    "total": "Total"
+    "total": "Total",
+    "manageYourFinances": "Manage your finances",
+    "income": "Income",
+    "expenses": "Expenses"
   },
   "workers": {
     "manageWorkers": "Manage Workers",

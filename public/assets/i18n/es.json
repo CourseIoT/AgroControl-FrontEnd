@@ -1,8 +1,11 @@
 {
-  "shared":{
+  "shared": {
     "date": "Fecha",
     "confirm": "Confirmar",
+    "confirmed": "Confirmado",
     "cancel": "Cancelar",
+    "cancelled": "Cancelado",
+    "failed": "Fallido",
     "upcoming": "Próximo",
     "start": "Iniciar",
     "finish": "Finalizar",
@@ -10,7 +13,24 @@
     "edit": "Editar",
     "delete": "Eliminar",
     "add": "Agregar",
-    "return": "Volver"
+    "return": "Volver",
+    "loading": "Cargando...",
+    "error": "Error",
+    "retry": "Reintentar",
+    "noData": "No hay datos disponibles",
+    "close": "Cerrar",
+    "filter": "Filtro",
+    "filterPlaceholder": "Ej. riego",
+    "viewDetails": "Ver detalles",
+    "noDataMatchingFilter": "No hay datos que coincidan con el filtro",
+    "notStarted": "No Iniciado",
+    "pending": "Pendiente",
+    "inProgress": "En Progreso",
+    "completed": "Completado",
+    "search": "Buscar",
+    "searchPlaceholder": "Buscar...",
+    "all": "Todos",
+    "actions": "Acciones"
   },
   "users": {
     "fullName": "Nombre Completo",
@@ -25,7 +45,7 @@
     "quantityPlanted": "Cantidad Plantada",
     "hoursIrrigated": "Horas de Riego",
     "type": "Tipo",
-    "quantityHarvested": "Cantidad Cosechada en Kg",
+    "quantityHarvested": "Cantidad Cosechada",
     "pricePerKg": "Precio por Kg",
     "status": "Estado",
     "workersTotalCost": "Costo Total de Trabajadores",
@@ -37,7 +57,13 @@
     "harvestHistory": "Historial de Cosecha",
     "addHarvest": "Agregar Cosecha",
     "irrigationHistory": "Historial de Riego",
-    "addIrrigation": "Agregar Riego"
+    "addIrrigation": "Agregar Riego",
+    "noIrrigationActivities": "No hay actividades de riego registradas aún",
+    "addFirstIrrigation": "Agregar primera actividad de riego",
+    "noCropTreatmentActivities": "No hay actividades de tratamiento registradas aún",
+    "addFirstCropTreatment": "Agregar primera actividad de tratamiento",
+    "noHarvestActivities": "No hay actividades de cosecha registradas aún",
+    "addFirstHarvest": "Agregar primera actividad de cosecha"
   },
   "resources": {
     "products": "Productos",
@@ -49,15 +75,24 @@
     "removeResource": "Eliminar Recurso",
     "submitAll": "Enviar Todo",
     "name": "Nombre",
-    "salesHistory": "Historial de Ventas"
+    "salesHistory": "Historial de Ventas",
+    "title": "Recursos Utilizados",
+    "subtotal": "Subtotal",
+    "totalItems": "Total de Ítems",
+    "totalCost": "Costo Total",
+    "totalQuantity": "Cantidad Total",
+    "noResources": "No hay recursos disponibles"
   },
   "finances": {
-    "totalIncome": "Ingreso Total",
-    "totalExpenses": "Gasto Total",
-    "totalProfit": "Ganancia Total",
-    "amount": "Cantidad",
+    "totalIncome": "Ingresos Totales",
+    "totalExpenses": "Gastos Totales",
+    "totalProfit": "Balance Neto",
+    "amount": "Monto",
     "financeHistory": "Historial Financiero",
-    "total": "Total"
+    "total": "Total",
+    "manageYourFinances": "Gestiona tus finanzas",
+    "income": "Ingresos",
+    "expenses": "Gastos"
   },
   "workers": {
     "manageWorkers": "Administrar Trabajadores",
