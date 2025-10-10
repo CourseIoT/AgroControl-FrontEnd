@@ -1,9 +1,14 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {CurrencyPipe, NgClass, NgIf, TitleCasePipe} from "@angular/common";
+import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatMenuModule} from '@angular/material/menu';
+import {CurrencyPipe, NgClass, NgIf} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
+
 @Component({
   selector: 'app-finance-table',
   standalone: true,
@@ -11,26 +16,60 @@ import {TranslateModule} from "@ngx-translate/core";
     MatTableModule,
     MatInputModule,
     MatFormFieldModule,
+    MatPaginatorModule,
+    MatIconModule,
+    MatButtonModule,
+    MatMenuModule,
     NgIf,
     CurrencyPipe,
-    TitleCasePipe,
     NgClass,
     TranslateModule
   ],
   templateUrl: './finance-table.component.html',
   styleUrl: './finance-table.component.css'
 })
-export class FinanceTableComponent {
+export class FinanceTableComponent implements OnInit {
   @Input() dataSource!: MatTableDataSource<any>;
-  displayedColumns: string[] = ['id', 'date', 'type', 'description', 'value'];
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  displayedColumns: string[] = ['id', 'date', 'type', 'description', 'value', 'actions'];
+  filterType: string = 'ALL';
+  private originalData: any[] = [];
 
   constructor() {
     this.dataSource = new MatTableDataSource<any>();
   }
 
-  applyFilter(event: Event) {
+  ngOnInit(): void {
+    // Store original data for filtering
+    this.originalData = [...this.dataSource.data];
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
+
+  applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  filterByType(type: string): void {
+    this.filterType = type;
+
+    if (type === 'ALL') {
+      this.dataSource.data = [...this.originalData];
+    } else {
+      this.dataSource.data = this.originalData.filter((item: any) => item.type === type);
+    }
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   getTotalIncome(): number {
@@ -48,5 +87,4 @@ export class FinanceTableComponent {
   getNetBalance(): number {
     return this.getTotalIncome() - this.getTotalExpense();
   }
-
 }

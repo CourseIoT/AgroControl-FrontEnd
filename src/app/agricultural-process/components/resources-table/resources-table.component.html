@@ -1,37 +1,145 @@
-<div *ngIf="showTable" class="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50" (close)="closePopup()">
-  <div class="bg-white max-w-4xl max-h-[80vh] overflow-y-auto p-6 relative rounded-lg shadow-lg">
-    <button
-      (click)="closePopup()"
-      class="absolute top-2 right-2 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
-    >
-     <mat-icon>close</mat-icon>
-    </button>
+<div
+  *ngIf="showTable"
+  class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 animate-fadeIn"
+  (click)="closePopup()">
 
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <div
+    class="bg-white w-full max-w-4xl max-h-[90vh] overflow-hidden rounded-xl shadow-2xl animate-slideUp"
+    (click)="$event.stopPropagation()">
 
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef class="!text-center !text-gray-400"> ID </th>
-        <td mat-cell *matCellDef="let element" class="!text-center !font-semibold"> {{element.resourceId}} </td>
-      </ng-container>
+    <!-- Header -->
+    <div class="bg-primary text-white px-6 py-4 flex justify-between items-center">
+      <h3 class="text-xl font-bold flex items-center gap-2">
+        <mat-icon>inventory_2</mat-icon>
+        {{ 'resources.title' | translate }}
+      </h3>
+      <button
+        (click)="closePopup()"
+        class="hover:bg-white/20 rounded-full p-2 transition-colors duration-200"
+        [matTooltip]="'shared.close' | translate">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
 
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef class="!text-center !text-gray-400">{{ 'resources.name' | translate }}</th>
-        <td mat-cell *matCellDef="let element" class="!text-center !font-semibold"> {{element.name}} </td>
-      </ng-container>
+    <!-- Summary Card -->
+    <div class="bg-gray-50 px-6 py-4 border-b">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="flex items-center gap-3">
+          <div class="bg-blue-100 p-3 rounded-lg">
+            <mat-icon class="text-blue-600">category</mat-icon>
+          </div>
+          <div>
+            <p class="text-xs text-gray-500">{{ 'resources.totalItems' | translate }}</p>
+            <p class="text-lg font-bold">{{ dataSource.data.length }}</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="bg-green-100 p-3 rounded-lg">
+            <mat-icon class="text-green-600">attach_money</mat-icon>
+          </div>
+          <div>
+            <p class="text-xs text-gray-500">{{ 'resources.totalCost' | translate }}</p>
+            <p class="text-lg font-bold">S/ {{ getTotalCost() | number:'1.2-2' }}</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="bg-purple-100 p-3 rounded-lg">
+            <mat-icon class="text-purple-600">inventory</mat-icon>
+          </div>
+          <div>
+            <p class="text-xs text-gray-500">{{ 'resources.totalQuantity' | translate }}</p>
+            <p class="text-lg font-bold">{{ getTotalQuantity() }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
 
-      <ng-container matColumnDef="cost">
-        <th mat-header-cell *matHeaderCellDef class="!text-center !text-gray-400">{{ 'resources.cost' | translate }}</th>
-        <td mat-cell *matCellDef="let element" class="!text-center !font-semibold"> {{element.cost}} </td>
-      </ng-container>
+    <!-- Table Container -->
+    <div class="overflow-auto max-h-[calc(90vh-220px)]">
+      <table mat-table [dataSource]="dataSource" class="w-full">
 
-      <ng-container matColumnDef="quantity">
-        <th mat-header-cell *matHeaderCellDef class="!text-center !text-gray-400">{{ 'resources.quantity' | translate }}</th>
-        <td mat-cell *matCellDef="let element" class="!text-center !font-semibold"> {{element.quantity}} </td>
-      </ng-container>
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef class="!text-center !text-gray-600 !font-bold !bg-gray-100 !py-4">
+            ID
+          </th>
+          <td mat-cell *matCellDef="let element" class="!text-center !font-semibold !py-3">
+            <span class="inline-block px-2 py-1 bg-gray-100 rounded text-sm">
+              {{element.resourceId}}
+            </span>
+          </td>
+        </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef class="!text-left !text-gray-600 !font-bold !bg-gray-100 !py-4 !pl-6">
+            {{ 'resources.name' | translate }}
+          </th>
+          <td mat-cell *matCellDef="let element" class="!text-left !font-semibold !py-3 !pl-6">
+            <div class="flex items-center gap-2">
+              <mat-icon class="text-gray-400 !w-5 !h-5 text-base">label</mat-icon>
+              {{element.name}}
+            </div>
+          </td>
+        </ng-container>
 
-    </table>
+        <ng-container matColumnDef="cost">
+          <th mat-header-cell *matHeaderCellDef class="!text-center !text-gray-600 !font-bold !bg-gray-100 !py-4">
+            {{ 'resources.cost' | translate }}
+          </th>
+          <td mat-cell *matCellDef="let element" class="!text-center !font-semibold !py-3">
+            <span class="text-green-600 font-bold">
+              S/ {{element.cost | number:'1.2-2'}}
+            </span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="quantity">
+          <th mat-header-cell *matHeaderCellDef class="!text-center !text-gray-600 !font-bold !bg-gray-100 !py-4">
+            {{ 'resources.quantity' | translate }}
+          </th>
+          <td mat-cell *matCellDef="let element" class="!text-center !font-semibold !py-3">
+            <span class="inline-flex items-center gap-1 bg-blue-50 text-blue-700 px-3 py-1 rounded-full">
+              <mat-icon class="!w-4 !h-4 text-sm">inventory_2</mat-icon>
+              {{element.quantity}}
+            </span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="total">
+          <th mat-header-cell *matHeaderCellDef class="!text-center !text-gray-600 !font-bold !bg-gray-100 !py-4">
+            {{ 'resources.subtotal' | translate }}
+          </th>
+          <td mat-cell *matCellDef="let element" class="!text-center !font-bold !py-3">
+            <span class="text-purple-600 font-bold">
+              S/ {{element.cost * element.quantity | number:'1.2-2'}}
+            </span>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns" class="!bg-gray-100"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+            class="hover:bg-gray-50 transition-colors"></tr>
+
+        <!-- Empty State -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell !text-center !py-12 text-gray-500" [attr.colspan]="displayedColumns.length">
+            <div class="flex flex-col items-center gap-3">
+              <mat-icon class="text-gray-300 !w-16 !h-16 text-6xl">inventory_2</mat-icon>
+              <p class="text-lg font-semibold">{{ 'resources.noResources' | translate }}</p>
+            </div>
+          </td>
+        </tr>
+
+      </table>
+    </div>
+
+    <!-- Footer -->
+    <div class="bg-gray-50 px-6 py-4 border-t flex justify-end gap-3">
+      <button
+        (click)="closePopup()"
+        class="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold rounded-lg transition-colors duration-200">
+        {{ 'shared.close' | translate }}
+      </button>
+    </div>
+
   </div>
 </div>
