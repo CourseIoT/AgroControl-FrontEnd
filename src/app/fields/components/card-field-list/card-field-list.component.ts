@@ -75,7 +75,6 @@ export class CardFieldListComponent implements OnInit {
 
   onFieldEdited(): void {
     this.loadFields();
-    this.closeEditModal();
   }
 
   reload(): void {

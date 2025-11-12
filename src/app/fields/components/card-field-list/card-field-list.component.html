@@ -77,11 +77,3 @@
   (success)="onFieldAdded()">
 </app-field-form>
 
-<!-- Modal de Formulario para Editar -->
-<app-field-form-edit
-  *ngIf="isEditModalOpen"
-  [fieldId]="selectedFieldId"
-  [isModalOpen]="isEditModalOpen"
-  (close)="closeEditModal()"
-  (success)="onFieldEdited()">
-</app-field-form-edit>

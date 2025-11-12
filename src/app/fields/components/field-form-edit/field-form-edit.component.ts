@@ -1,61 +1,63 @@
-import {Component, EventEmitter, inject, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {Fields} from "../../models/fields.entity";
-import {FormsModule, NgForm, ReactiveFormsModule} from "@angular/forms";
-import {FieldsService} from "../../services/fields.service";
-import {MatFormField, MatLabel} from "@angular/material/form-field";
-import {MatInput} from "@angular/material/input";
-import {NgIf} from "@angular/common";
-import {TranslateModule} from "@ngx-translate/core";
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
+import { NgIf } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+
+// ✅ Componentes standalone Material
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+
+import { Fields } from '../../models/fields.entity';
+import { FieldsService } from '../../services/fields.service';
 
 @Component({
   selector: 'app-field-form-edit',
   standalone: true,
   imports: [
     FormsModule,
-    MatFormField,
-    MatInput,
-    MatLabel,
     NgIf,
-    ReactiveFormsModule,
-    TranslateModule
+    TranslateModule,
+    MatFormField,
+    MatLabel,
+    MatInput
   ],
   templateUrl: './field-form-edit.component.html',
-  styleUrl: './field-form-edit.component.css'
+  styleUrls: ['./field-form-edit.component.css']
 })
-export class FieldFormEditComponent implements OnInit{
-  @Input() isModalOpen: boolean=true ;
-  @Input() fieldId!:number;
-  @Input() currentUserId!:number;
+export class FieldFormEditComponent implements OnInit {
+  @Input() isModalOpen = false;
+  @Input() field!: Fields;
   @Output() close = new EventEmitter<void>();
   @Output() success = new EventEmitter<void>();
-  field!: Fields;
-  @ViewChild('fieldForm', { static: false}) fieldForm!: NgForm;
-  fieldService: FieldsService = inject(FieldsService);
 
-  constructor() {
-    this.field=new Fields({});
-  }
+  @ViewChild('fieldForm', { static: false }) fieldForm!: NgForm;
+
+  saving = false;
+
+  constructor(private fieldsService: FieldsService) {}
 
   ngOnInit(): void {
-    this.field.producerId= this.currentUserId;
-  }
-  private resetForm(){
-    this.fieldForm.resetForm();
-    this.field=new Fields({});
   }
 
   onSubmit() {
-    if (this.fieldForm.form.valid) {
-      this.fieldService.update(this.fieldId, this.field).subscribe((response: any) => {
-        console.log("Field Updated", response);
+    if (this.saving || !this.field?.id) return;
+
+    this.saving = true;
+
+    this.fieldsService.update(this.field.id, this.field).subscribe({
+      next: () => {
+        this.saving = false;
         this.success.emit();
-        this.resetForm();
         this.isModalOpen = false;
-      });
-    }
+      },
+      error: (e) => {
+        console.error('Error updating field', e);
+        this.saving = false;
+      }
+    });
   }
+
   onCancel() {
-    this.resetForm();
     this.isModalOpen = false;
     this.close.emit();
   }

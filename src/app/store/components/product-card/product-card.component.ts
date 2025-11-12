@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   inject,
@@ -36,7 +37,14 @@ export class ProductCardComponent implements OnInit{
 
   userId!: number;
   productService: ProductStoredService = inject(ProductStoredService);
+  private cdr = inject(ChangeDetectorRef);
+
   showPopUp = false;
+  showSuccessMessage = false;
+  showErrorMessage = false;
+  purchasing = false;
+  errorMessage = '';
+
   @ViewChild('productForm', { static: false }) productForm!: NgForm;
   item = {
     "productId": 0,
@@ -53,33 +61,64 @@ export class ProductCardComponent implements OnInit{
   }
 
   editProduct() {
-    this.edit.emit(); // Emitir evento para editar
+    this.edit.emit();
   }
 
   buyProduct() {
+    if (this.purchasing) return;
+
+    this.purchasing = true;
     this.item.productId = this.productForm.value.productId;
+    this.cdr.detectChanges();
+
     this.productService.create(this.item).subscribe(
       (response) => {
         console.log(response);
+        this.purchasing = false;
         this.closePopup();
+        this.showSuccessMessage = true;
         this.resetForm();
-      } ,
+        this.cdr.detectChanges();
+
+        // Auto cerrar después de 3 segundos
+        setTimeout(() => {
+          this.closeSuccessMessage();
+        }, 3000);
+      },
       (error) => {
         console.log(error);
+        this.purchasing = false;
+        this.closePopup();
+        this.errorMessage = 'Ocurrió un error al procesar tu compra. Por favor intenta de nuevo.';
+        this.showErrorMessage = true;
+        this.cdr.detectChanges();
       }
-      );
+    );
   }
 
   resetForm(){
-    this.productForm.reset();
+    this.productForm?.reset();
     this.item = {
       "productId": 0,
       "quantityProduct": 0,
-      "userId": 0
+      "userId": this.userId
     }
   }
 
   closePopup() {
     this.showPopUp = false;
+    this.resetForm();
+    this.cdr.detectChanges();
+  }
+
+  closeSuccessMessage() {
+    this.showSuccessMessage = false;
+    this.cdr.detectChanges();
+  }
+
+  closeErrorMessage() {
+    this.showErrorMessage = false;
+    this.errorMessage = '';
+    this.cdr.detectChanges();
   }
 }
