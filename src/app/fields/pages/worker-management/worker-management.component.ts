@@ -1,11 +1,12 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {MatButton} from "@angular/material/button";
-import {WorkerFieldFormComponent} from "../../components/worker-field-form/worker-field-form.component";
-import {WorkersFieldTableComponent} from "../../components/workers-field-table/workers-field-table.component";
-import {Worker} from "../../models/worker.entity";
-import {WorkerService} from "../../services/worker.service";
-import {Router} from "@angular/router";
-import {TranslateModule} from "@ngx-translate/core";
+import { Component, inject, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
+import { MatButton } from "@angular/material/button";
+import { TranslateModule } from "@ngx-translate/core";
+
+import { WorkerFieldFormComponent } from "../../components/worker-field-form/worker-field-form.component";
+import { WorkersFieldTableComponent } from "../../components/workers-field-table/workers-field-table.component";
+import { Worker } from "../../models/worker.entity";
+import { WorkerService } from "../../services/worker.service";
 
 @Component({
   selector: 'app-worker-management',
@@ -19,22 +20,28 @@ import {TranslateModule} from "@ngx-translate/core";
   templateUrl: './worker-management.component.html',
   styleUrl: './worker-management.component.css'
 })
-export class WorkerManagementComponent implements OnInit{
-  modalOpen: boolean = false;
-  protected dataSource!: Array<Worker>;
-  private workerService: WorkerService = inject(WorkerService);
+export class WorkerManagementComponent implements OnInit {
+  modalOpen = false;
+  dataSource: Array<Worker> = [];
   userId!: number;
 
-  constructor(private router: Router) {
-  }
+  private workerService: WorkerService = inject(WorkerService);
+
+  constructor(private router: Router) {}
 
   ngOnInit() {
     this.getWorkers();
   }
 
   getWorkers() {
-    this.userId = parseInt(localStorage.getItem('userId') || '');
-    this.workerService.getAllByUserId(this.userId).subscribe((response: Array<Worker>) => this.dataSource = response);
+    this.userId = parseInt(localStorage.getItem('userId') || '0', 10);
+    if (!this.userId) {
+      console.error('No userId found in localStorage');
+      return;
+    }
+
+    this.workerService.getAllByUserId(this.userId)
+      .subscribe((response: Array<Worker>) => this.dataSource = response);
   }
 
   handleSuccess() {
@@ -51,7 +58,7 @@ export class WorkerManagementComponent implements OnInit{
   }
 
   goToHome() {
-    const agriculturalProcessId = localStorage.getItem('agriculturalProcessId');
+    const agriculturalProcessId = localStorage.getItem('agriculturalProcessId') || 0;
     this.router.navigate(['home-agricultural-process', agriculturalProcessId]);
   }
 }

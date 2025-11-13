@@ -1,7 +1,9 @@
 <section class="flex flex-col gap-6 max-w-full bg-gray-50 min-h-screen p-4 md:p-6">
   <!-- Header Section -->
   <div class="flex flex-col items-center gap-4">
-    <h1 class="text-3xl md:text-4xl font-bold text-gray-900 text-center">{{fieldName || 'New Field'}}</h1>
+    <h1 class="text-3xl md:text-4xl font-bold text-gray-900 text-center">
+      {{ fieldName || 'New Field' }}
+    </h1>
   </div>
 
   <!-- Main Content Grid -->
@@ -25,29 +27,55 @@
           </button>
         </div>
       </div>
+
       <app-last-activity-card
         [agriculturalProcessId]="agriculturalProcessId"
-        [type]="'SEEDING'" />
+        [type]="'SEEDING'">
+      </app-last-activity-card>
+
+      <!-- 🔢 Jump a otro Agricultural Process ID -->
+      <div class="mt-6 flex flex-col sm:flex-row items-center gap-3">
+        <label class="text-sm font-semibold text-gray-700">
+          Go to process ID:
+        </label>
+        <input
+          #processInput
+          type="number"
+          min="1"
+          placeholder="e.g. 20"
+          class="border border-gray-300 rounded-lg px-3 py-2 text-sm w-full sm:w-32 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+        />
+        <button
+          (click)="goToProcessById(processInput.value)"
+          class="bg-green-600 px-4 py-2 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition-all duration-300 text-sm">
+          Go
+        </button>
+      </div>
     </div>
 
     <!-- Right Column: Workers Section -->
     <div class="bg-white rounded-lg shadow-md p-6">
       <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-bold text-gray-900">Workers</h2>
+        <h2 class="text-2xl font-bold text-gray-900">
+          {{ 'workers.manageWorkers' | translate }}
+        </h2>
       </div>
 
-      <!-- Workers Table -->
-      <app-workers-field-table [workers]="workers" [userId]="userId" />
+      <!-- Workers Table (muestra lista o estado vacío) -->
+      <app-workers-field-table [workers]="workers"></app-workers-field-table>
 
-      <!-- Manage Workers Button -->
+      <!-- Botón para ir SIEMPRE a la pantalla de gestión -->
       <div class="flex justify-center mt-4">
         <button
-          *ngIf="workers.length > 0"
           mat-raised-button
           color="primary"
           routerLink="/worker-management"
           class="!w-full !max-w-xs !bg-green-600 !text-white !rounded-lg !py-2 !px-4 !transition-transform !transform !hover:scale-105 !shadow-lg">
-          View
+          {{
+            workers.length
+              ? ('workers.manageWorkers' | translate)
+              : ('workers.addWorker' | translate)
+          }}
         </button>
       </div>
     </div>
@@ -60,39 +88,33 @@
     <div class="bg-white rounded-lg shadow-md p-6">
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-2xl font-bold text-gray-900">Irrigation</h2>
-        <button class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-all shadow-md">
+        <button
+          class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-all shadow-md"
+          (click)="goToIrrigationHistory()">
           View
         </button>
       </div>
       <app-last-activity-card
         [agriculturalProcessId]="agriculturalProcessId"
-        [type]="'IRRIGATION'" />
+        [type]="'IRRIGATION'">
+      </app-last-activity-card>
     </div>
 
     <!-- Fumigation -->
     <div class="bg-white rounded-lg shadow-md p-6">
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-2xl font-bold text-gray-900">Fumigation</h2>
-        <button class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-all shadow-md">
+        <button
+          class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-all shadow-md"
+          (click)="goToCropTreatmentHistory()">
           View
         </button>
       </div>
       <app-last-activity-card
         [agriculturalProcessId]="agriculturalProcessId"
-        [type]="'CROP_TREATMENT'" />
+        [type]="'CROP_TREATMENT'">
+      </app-last-activity-card>
     </div>
   </div>
 
-  <!-- Fertilizers Section -->
-  <div class="bg-white rounded-lg shadow-md p-6">
-    <div class="flex justify-between items-center mb-4">
-      <h2 class="text-2xl font-bold text-gray-900">Fertilizers</h2>
-      <button class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-all shadow-md">
-        View
-      </button>
-    </div>
-    <div class="text-center text-gray-500 py-8">
-      <p class="text-sm">Date | Worker</p>
-    </div>
-  </div>
 </section>

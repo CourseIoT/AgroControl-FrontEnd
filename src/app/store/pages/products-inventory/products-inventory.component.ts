@@ -45,18 +45,31 @@ export class ProductsInventoryComponent implements OnInit{
     });
   }
 
+  getTotalStock(): number {
+    return this.products.reduce((sum, product) => sum + product.quantity, 0);
+  }
+
+  getTotalValue(): string {
+    const total = this.products.reduce((sum, product) => sum + (product.unitPrice * product.quantity), 0);
+    return total.toFixed(2);
+  }
+
   showPopup() {
     this.showForm = true;
+    this.isEditMode = false;
+    this.productToEdit = undefined;
   }
 
   handleClosed(event: any) {
     this.showForm = false;
+    this.isEditMode = false;
+    this.productToEdit = undefined;
     this.getProducts();
   }
+
   openFormForEdit(product: Product) {
     this.isEditMode = true;
     this.productToEdit = product;
     this.showForm = true;
   }
-
 }

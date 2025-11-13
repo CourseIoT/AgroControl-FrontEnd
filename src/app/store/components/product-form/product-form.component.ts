@@ -17,7 +17,6 @@ import {TranslateModule} from "@ngx-translate/core";
     FormsModule,
     MatInput,
     MatFormField,
-    MatButton,
     NgIf,
     MatIcon,
     MatLabel,
@@ -29,20 +28,17 @@ import {TranslateModule} from "@ngx-translate/core";
   styleUrls: ['./product-form.component.css']
 })
 export class ProductFormComponent {
-  //#region Attributes
   @Input() showForm!: boolean;
   @Input() userId!: number;
-  @Input() isEditMode: boolean = false; // Nueva propiedad
-  @Input() productToEdit?: Product; // Producto a editar
+  @Input() isEditMode: boolean = false;
+  @Input() productToEdit?: Product;
   @ViewChild('productForm', { static: false }) protected productForm!: NgForm;
   productService: ProductService = inject(ProductService);
   @Output() close = new EventEmitter<void>();
   loading: boolean = false;
   success!: boolean;
   message!: string;
-  product!: Product; // Producto que se está creando o editando
-
-  //#endregion Attributes
+  product!: Product;
 
   constructor() {
     this.resetForm();
@@ -50,9 +46,9 @@ export class ProductFormComponent {
 
   ngOnChanges() {
     if (this.isEditMode && this.productToEdit) {
-      this.product = { ...this.productToEdit }; // Clonar el producto a editar
+      this.product = { ...this.productToEdit };
     } else {
-      this.resetForm(); // Resetear el formulario si no está en modo edición
+      this.resetForm();
     }
   }
 
@@ -60,16 +56,22 @@ export class ProductFormComponent {
     this.product = new Product({});
     this.productForm?.resetForm();
     this.message = '';
+    this.loading = false;
   }
 
-  private isValid = () => this.productForm.valid;
+  private isValid = () => this.productForm?.valid;
+
+  onImageError(event: Event): void {
+    const target = event.target as HTMLImageElement;
+    if (target) {
+      target.style.display = 'none';
+    }
+  }
 
   onSubmit() {
     if (this.isValid() && !this.loading) {
       this.loading = true;
       this.product.userId = this.userId;
-
-      console.log('Product: ', this.product);
 
       const productToUpdate = {
         "name": this.product.name,
@@ -79,39 +81,46 @@ export class ProductFormComponent {
         "photoUrl": this.product.photoUrl
       }
 
-      // Lógica para crear o actualizar
       const request = this.isEditMode
-        ? this.productService.update(this.product.id, productToUpdate) // Llama al método de actualización
-        : this.productService.create(this.product); // Llama al método de creación
+        ? this.productService.update(this.product.id, productToUpdate)
+        : this.productService.create(this.product);
 
-      // Simulate loading delay of 3 seconds
-      setTimeout(() => {
-        request.subscribe(
-          (response) => {
-            console.log(this.isEditMode ? 'Product updated: ' : 'Product created: ', response);
-            this.message = this.isEditMode ? 'Product updated successfully' : 'Product created successfully';
-            this.resetForm();
-            this.success = true; // Indicate success
-          },
-          (error) => {
-            console.error(this.isEditMode ? 'Error updating product: ' : 'Error creating product: ', error);
-            this.message = this.isEditMode ? 'Error updating product' : 'Error creating product';
-            this.success = false; // Indicate failure
-          },
-          () => {
-            this.loading = false; // Ensure loading is false at the end of the request
-          }
-        );
-      }, 3000); // Delay of 3 seconds
+      request.subscribe(
+        (response) => {
+          console.log(this.isEditMode ? 'Product updated: ' : 'Product created: ', response);
+          this.message = this.isEditMode ? 'Producto actualizado exitosamente' : 'Producto creado exitosamente';
+          this.success = true;
+          this.loading = false;
+
+          // Auto cerrar después de 2 segundos
+          setTimeout(() => {
+            this.closeMessage();
+          }, 2000);
+        },
+        (error) => {
+          console.error(this.isEditMode ? 'Error updating product: ' : 'Error creating product: ', error);
+          this.message = this.isEditMode ? 'Error al actualizar el producto' : 'Error al crear el producto';
+          this.success = false;
+          this.loading = false;
+        }
+      );
     }
   }
 
   onCancel() {
-    this.resetForm();
-    this.closePopup();
+    if (!this.loading) {
+      this.resetForm();
+      this.closePopup();
+    }
   }
 
   closePopup() {
     this.close.emit();
+  }
+
+  closeMessage() {
+    this.message = '';
+    this.resetForm();
+    this.closePopup();
   }
 }

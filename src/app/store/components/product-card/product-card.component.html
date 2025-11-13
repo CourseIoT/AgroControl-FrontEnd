@@ -1,90 +1,186 @@
-<mat-card class="!m-5 !rounded-lg !shadow-lg !overflow-hidden">
-  <img
-    mat-card-image
-    [src]="product.photoUrl !== ''  && product.photoUrl !== 'string' ? product.photoUrl : 'https://th.bing.com/th/id/OIP.HBh4qLAGWTtaaoTj-F3ySgHaHa?rs=1&pid=ImgDetMain'"
-    [alt]="product.name"
-    class="!w-full !h-auto !max-h-52 !object-cover"
-  />
-  <mat-card-content class="!p-4 !bg-white">
-    <p class="!text-2xl !font-bold !mb-2">{{ product.name }}</p>
-    <p *ngIf="showField === 1" class="!text-gray-700 !text-sm">{{ 'products.quantityPerUnit' | translate }}: {{ product.quantityPerUnit }}</p>
-    <p class="!text-lg !font-bold !text-green-600">{{ 'products.price' | translate }}: ${{ product.unitPrice }}</p>
-    <p class="!text-gray-500 !text-sm">{{ 'products.available' | translate }}: {{ product.quantity }}</p>
+<mat-card class="!m-0 !rounded-lg !shadow-sm !border !border-gray-200 !overflow-hidden hover:!shadow-lg !transition-shadow !duration-300 h-full flex flex-col">
+  <div class="relative h-48 bg-gray-100">
+    <img
+      mat-card-image
+      [src]="product.photoUrl !== ''  && product.photoUrl !== 'string' ? product.photoUrl : 'https://th.bing.com/th/id/OIP.HBh4qLAGWTtaaoTj-F3ySgHaHa?rs=1&pid=ImgDetMain'"
+      [alt]="product.name"
+      class="!w-full !h-full !object-cover !m-0"
+    />
+    <div class="absolute top-3 right-3 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
+      {{ product.quantity }} disponibles
+    </div>
+  </div>
+
+  <mat-card-content class="!p-4 !bg-white flex-grow flex flex-col">
+    <p class="!text-lg !font-bold !mb-1 !text-gray-800 line-clamp-2">{{ product.name }}</p>
+    <p *ngIf="showField === 1" class="!text-gray-600 !text-xs !mb-2">{{ 'products.quantityPerUnit' | translate }}: {{ product.quantityPerUnit }}</p>
+    <p *ngIf="showField === 2" class="!text-gray-600 !text-xs !mb-2">Cantidad por unidad: {{ product.quantityPerUnit }}</p>
+
+    <div class="mt-auto">
+      <p class="!text-2xl !font-bold !text-green-600 !m-0 !mb-3">${{ product.unitPrice.toFixed(2) }}</p>
+    </div>
   </mat-card-content>
-  <mat-card-actions class="!p-4 !flex !justify-center">
+
+  <mat-card-actions class="!p-4 !bg-gray-50 !flex !justify-center">
     <button
-      mat-button
+      mat-raised-button
       *ngIf="showField === 1"
       (click)="editProduct()"
-      class="!text-green-600 !font-bold"
+      class="w-full !bg-green-500 !text-white !py-2.5 !rounded-lg !font-semibold !text-sm hover:!bg-green-600 !transition-colors !duration-300"
     >
       {{ 'shared.edit' | translate }}
     </button>
     <button
-      mat-button
+      mat-raised-button
       *ngIf="showField === 2"
       (click)="showPopUp = true"
-      class="!text-green-600 !font-bold"
+      class="w-full !bg-green-500 !text-white !py-2.5 !rounded-lg !font-semibold !text-sm hover:!bg-green-600 !transition-colors !duration-300 !flex !items-center !justify-center !gap-1.5"
     >
-      {{ 'products.buy' | translate }}
+      <mat-icon class="!text-base !w-4 !h-4 !leading-none">shopping_cart</mat-icon>
+      <span>{{ 'products.buy' | translate }}</span>
     </button>
 
     <button
       *ngIf="showField === 0"
-      class="bg-primary px-5 py-3 text-white font-semibold uppercase rounded-lg shadow-md hover:bg-primary-hover disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 ease-in-out"
-      [routerLink]="'/store'">Go to Store</button>
+      class="w-full bg-green-500 px-5 py-2.5 text-white text-sm font-semibold uppercase rounded-lg shadow-md hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 ease-in-out"
+      [routerLink]="'/store'">
+      Go to Store
+    </button>
   </mat-card-actions>
 </mat-card>
 
 <div
   *ngIf="showPopUp"
-  class="!fixed !inset-0 !bg-black !bg-opacity-30 !flex !items-center !justify-center !z-50"
-  (close)="closePopup()"
+  class="!fixed !inset-0 !bg-black !bg-opacity-50 !flex !items-center !justify-center !z-50 !p-4"
 >
   <div
-    class="!bg-white !max-w-4xl !max-h-[80vh] !overflow-y-auto !p-6 !relative !rounded-lg !shadow-lg"
+    class="!bg-white !rounded-lg !shadow-2xl !max-w-md !w-full"
+    (click)="$event.stopPropagation()"
   >
-    <button
-      (click)="closePopup()"
-      class="!absolute !top-2 !right-2 !bg-red-500 !text-white !rounded-full !w-8 !h-8 !flex !items-center !justify-center !text-lg !hover:bg-red-600 !focus:outline-none !focus:ring-2 !focus:ring-red-400"
-    >
-      <mat-icon>close</mat-icon>
-    </button>
+    <div class="!p-6 !border-b !border-gray-200">
+      <div class="!flex !items-center !justify-between">
+        <h2 class="!text-2xl !font-bold !text-gray-800 !m-0">Confirmar Compra</h2>
+        <button
+          (click)="closePopup()"
+          class="!text-gray-400 hover:!text-gray-600 !transition-colors !bg-transparent !border-0 !cursor-pointer"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
 
-    <form #productForm="ngForm" class="!flex !flex-col !gap-4">
-      <mat-form-field appearance="fill" class="!w-full">
-        <mat-label>{{ 'resources.name' | translate }}</mat-label>
-        <p class="!m-0 !p-2 !text-gray-700 !font-medium">{{ product.name }}</p>
+    <form #productForm="ngForm" class="!p-6">
+      <div class="!mb-6">
+        <img
+          [src]="product.photoUrl !== ''  && product.photoUrl !== 'string' ? product.photoUrl : 'https://th.bing.com/th/id/OIP.HBh4qLAGWTtaaoTj-F3ySgHaHa?rs=1&pid=ImgDetMain'"
+          [alt]="product.name"
+          class="!w-full !h-48 !object-cover !rounded-lg !mb-4"
+        />
+        <h3 class="!text-xl !font-bold !text-gray-800 !mb-2">{{ product.name }}</h3>
+        <p class="!text-gray-600 !m-0">Precio unitario: ${{ product.unitPrice.toFixed(2) }}</p>
         <input
           matInput
           name="productId"
           [(ngModel)]="product.id"
-          hidden="hidden"
+          hidden
         />
-      </mat-form-field>
+      </div>
 
-      <mat-form-field appearance="fill" class="!w-full">
-        <mat-label>{{ 'products.productQuantity' | translate }}</mat-label>
+      <div class="!mb-6">
+        <label class="block text-gray-700 font-semibold mb-2">{{ 'products.productQuantity' | translate }}</label>
         <input
-          matInput
           type="number"
           min="1"
-          placeholder="Quantity"
+          [max]="product.quantity"
+          placeholder="Cantidad"
           name="quantityProduct"
           [(ngModel)]="item.quantityProduct"
           required
+          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
         />
-      </mat-form-field>
+      </div>
 
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="buyProduct()"
-        [disabled]="productForm.invalid"
-        class="!font-bold"
-      >
-        {{ 'products.buy' | translate }}
-      </button>
+      <div class="!bg-gray-50 !rounded-lg !p-4 !mb-6">
+        <div class="!flex !justify-between !items-center !text-lg">
+          <span class="!font-semibold !text-gray-700">Total:</span>
+          <span class="!text-2xl !font-bold !text-green-600">
+            ${{ (product.unitPrice * (item.quantityProduct || 0)).toFixed(2) }}
+          </span>
+        </div>
+      </div>
+
+      <div class="!flex !gap-3">
+        <button
+          type="button"
+          mat-raised-button
+          (click)="closePopup()"
+          [disabled]="purchasing"
+          class="!flex-1 !bg-gray-200 !text-gray-800 !py-3 !rounded-lg !font-semibold hover:!bg-gray-300 !transition-colors !duration-300 disabled:!opacity-50"
+        >
+          Cancelar
+        </button>
+        <button
+          type="button"
+          mat-raised-button
+          (click)="buyProduct()"
+          [disabled]="productForm.invalid || purchasing"
+          class="!flex-1 !bg-green-500 !text-white !py-3 !rounded-lg !font-semibold hover:!bg-green-600 !transition-colors !duration-300 disabled:!opacity-50 disabled:!cursor-not-allowed"
+        >
+          {{ purchasing ? 'Procesando...' : ('products.buy' | translate) }}
+        </button>
+      </div>
     </form>
+  </div>
+</div>
+
+<!-- Modal de éxito -->
+<div
+  *ngIf="showSuccessMessage"
+  class="!fixed !inset-0 !bg-black !bg-opacity-50 !flex !items-center !justify-center !z-[60] !p-4"
+  (click)="closeSuccessMessage()"
+>
+  <div
+    class="!bg-white !rounded-lg !shadow-2xl !max-w-sm !w-full !p-8 !text-center"
+    (click)="$event.stopPropagation()"
+  >
+    <div class="!mb-4 !flex !justify-center">
+      <div class="!bg-green-100 !rounded-full !p-4">
+        <mat-icon class="!text-green-600 !w-12 !h-12 !text-5xl">check_circle</mat-icon>
+      </div>
+    </div>
+    <h3 class="!text-2xl !font-bold !text-gray-800 !mb-2">¡Compra Exitosa!</h3>
+    <p class="!text-gray-600 !mb-6">Tu compra se ha realizado correctamente</p>
+    <button
+      (click)="closeSuccessMessage()"
+      class="!w-full !bg-green-500 !text-white !py-3 !rounded-lg !font-semibold hover:!bg-green-600 !transition-colors !duration-300"
+    >
+      Aceptar
+    </button>
+  </div>
+</div>
+
+<!-- Modal de error -->
+<div
+  *ngIf="showErrorMessage"
+  class="!fixed !inset-0 !bg-black !bg-opacity-50 !flex !items-center !justify-center !z-[60] !p-4"
+  (click)="closeErrorMessage()"
+>
+  <div
+    class="!bg-white !rounded-lg !shadow-2xl !max-w-sm !w-full !p-8 !text-center"
+    (click)="$event.stopPropagation()"
+  >
+    <div class="!mb-4 !flex !justify-center">
+      <div class="!bg-red-100 !rounded-full !p-4">
+        <mat-icon class="!text-red-600 !w-12 !h-12 !text-5xl">error</mat-icon>
+      </div>
+    </div>
+    <h3 class="!text-2xl !font-bold !text-gray-800 !mb-2">Error en la Compra</h3>
+    <p class="!text-gray-600 !mb-6">{{ errorMessage }}</p>
+    <button
+      (click)="closeErrorMessage()"
+      class="!w-full !bg-red-500 !text-white !py-3 !rounded-lg !font-semibold hover:!bg-red-600 !transition-colors !duration-300"
+    >
+      Cerrar
+    </button>
   </div>
 </div>

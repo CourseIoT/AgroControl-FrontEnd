@@ -95,6 +95,12 @@
     "expenses": "Expenses"
   },
   "workers": {
+    "title": "Workers",
+    "subtitle": "Manage the workers of your fields",
+    "listTitle": "Workers list",
+    "listSubtitle": "Here you can add and manage your workers",
+    "emptyTitle": "No workers assigned",
+    "emptySubtitle": "Add workers from the management screen.",
     "manageWorkers": "Manage Workers",
     "addWorker": "Add Worker"
   },

@@ -1,15 +1,82 @@
-<div class="p-4 w-full flex flex-col">
-  <h2 class="text-4xl font-bold mb-4">Products</h2>
-  <!-- Botón de Agregar Producto -->
-  <div class="flex justify-end">
-    <button (click)="showPopup()"
-            class="flex items-center bg-green-500 text-white rounded-lg px-4 py-2 hover:bg-green-600 transition duration-300">
-      <mat-icon>add</mat-icon>
-      <span class="ml-2">{{ 'products.addProduct' | translate }}</span> <!-- Añade texto descriptivo -->
-    </button>
+<div class="min-h-screen bg-gray-50">
+  <!-- Header -->
+  <div class="bg-gradient-to-r from-green-700 to-green-600 text-white py-6 px-4">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div>
+        <h1 class="text-3xl font-bold mb-1">Mis Productos</h1>
+        <p class="text-green-100 text-sm">Administra tu inventario de productos</p>
+      </div>
+      <button
+        (click)="showPopup()"
+        class="flex items-center gap-2 bg-white text-green-700 rounded-lg px-5 py-3 hover:bg-green-50 transition duration-300 font-semibold text-sm shadow-md"
+      >
+      <mat-icon class="!text-xl !w-5 !h-5">add</mat-icon>
+        <span>{{ 'products.addProduct' | translate }}</span>
+      </button>
+    </div>
   </div>
 
-  <p *ngIf="products.length === 0" class="text-center mt-4">No products available</p>
+  <div class="max-w-7xl mx-auto px-4 py-6">
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-600 text-xs font-medium mb-1">Total de Productos</p>
+            <p class="text-2xl font-bold text-gray-800">{{ products.length }}</p>
+          </div>
+          <div class="bg-green-100 p-2.5 rounded-lg flex items-center justify-center">
+            <mat-icon class="text-green-600 !w-6 !h-6 !text-2xl">inventory_2</mat-icon>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-600 text-xs font-medium mb-1">Stock Total</p>
+            <p class="text-2xl font-bold text-gray-800">{{ getTotalStock() }}</p>
+          </div>
+          <div class="bg-blue-100 p-2.5 rounded-lg flex items-center justify-center">
+            <mat-icon class="text-blue-600 !w-6 !h-6 !text-2xl">shopping_basket</mat-icon>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-600 text-xs font-medium mb-1">Valor del Inventario</p>
+            <p class="text-2xl font-bold text-gray-800">${{ getTotalValue() }}</p>
+          </div>
+          <div class="bg-green-100 p-2.5 rounded-lg flex items-center justify-center">
+            <mat-icon class="text-green-600 !w-6 !h-6 !text-2xl">paid</mat-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="products.length === 0" class="bg-white rounded-lg shadow-sm border border-gray-200 p-12 text-center">
+      <mat-icon class="text-gray-400 mb-4" style="font-size: 48px; width: 48px; height: 48px;">inventory_2</mat-icon>
+      <p class="text-gray-500 text-base mb-4">No tienes productos en tu inventario</p>
+      <button
+        (click)="showPopup()"
+        class="inline-flex items-center gap-2 bg-green-500 text-white rounded-lg px-6 py-2.5 hover:bg-green-600 transition duration-300 font-semibold text-sm"
+      >
+        <mat-icon class="!text-base !w-5 !h-5">add</mat-icon>
+        <span>Agregar tu primer producto</span>
+      </button>
+    </div>
+
+    <!-- Lista de Productos -->
+    <app-products-list
+      *ngIf="products.length > 0"
+      [products]="products"
+      [showField]="1"
+      (edit)="openFormForEdit($event)"
+    />
+  </div>
 
   <!-- Formulario de Producto -->
   <app-product-form
@@ -18,13 +85,5 @@
     [isEditMode]="isEditMode"
     [productToEdit]="productToEdit"
     (close)="handleClosed($event)"
-  />
-
-  <!-- Lista de Productos -->
-  <app-products-list
-    [products]="products"
-    [showField]="1"
-    (edit)="openFormForEdit($event)"
-    class="mt-4"
   />
 </div>

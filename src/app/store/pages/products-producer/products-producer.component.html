@@ -1,9 +1,233 @@
-<h2 class="text-center text-3xl font-semibold mt-4">Products</h2>
-<app-products-list
-  [products]="products"
-  [showField]="0"
-  (edit)="openFormForEdit($event)"
-  class="mt-4"
-/>
+<div class="min-h-screen bg-gray-50">
+  <!-- Header -->
+  <div class="bg-gradient-to-r from-teal-700 to-teal-600 text-white py-6 px-4">
+    <div class="max-w-7xl mx-auto">
+      <h1 class="text-3xl font-bold mb-1">Mi Stock de Compras</h1>
+      <p class="text-teal-100 text-sm">Productos que has comprado de otros productores</p>
+    </div>
+  </div>
 
-<p *ngIf="message" class="text-center text-red-500 mt-4">{{ message }} </p>
+  <div class="max-w-7xl mx-auto px-4 py-6">
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-600 text-xs font-medium mb-1">Productos Comprados</p>
+            <p class="text-2xl font-bold text-gray-800">{{ products.length }}</p>
+          </div>
+          <div class="bg-green-100 p-2.5 rounded-lg flex items-center justify-center">
+            <mat-icon class="text-green-600 !w-6 !h-6 !text-2xl">shopping_bag</mat-icon>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-600 text-xs font-medium mb-1">Cantidad Total</p>
+            <p class="text-2xl font-bold text-gray-800">{{ getTotalStock() }}</p>
+          </div>
+          <div class="bg-blue-100 p-2.5 rounded-lg flex items-center justify-center">
+            <mat-icon class="text-blue-600 !w-6 !h-6 !text-2xl">inventory</mat-icon>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-600 text-xs font-medium mb-1">Inversión Total</p>
+            <p class="text-2xl font-bold text-gray-800">${{ getTotalValue() }}</p>
+          </div>
+          <div class="bg-teal-100 p-2.5 rounded-lg flex items-center justify-center">
+            <mat-icon class="text-teal-600 !w-6 !h-6 !text-2xl">account_balance_wallet</mat-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="products.length === 0" class="bg-white rounded-lg shadow-sm border border-gray-200 p-12 text-center">
+      <mat-icon class="text-gray-400 mb-4" style="font-size: 48px; width: 48px; height: 48px;">shopping_bag</mat-icon>
+      <p class="text-gray-500 text-base mb-2">No has realizado compras aún</p>
+      <p class="text-gray-400 text-sm">Ve a "Store" para comprar productos de otros productores</p>
+    </div>
+
+    <!-- Lista de Productos con opción de usar -->
+    <div *ngIf="products.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <div *ngFor="let product of products" class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300 h-full flex flex-col">
+        <div class="relative h-48 bg-gray-100">
+          <img
+            [src]="product.photoUrl !== '' && product.photoUrl !== 'string' ? product.photoUrl : 'https://th.bing.com/th/id/OIP.HBh4qLAGWTtaaoTj-F3ySgHaHa?rs=1&pid=ImgDetMain'"
+            [alt]="product.name"
+            class="w-full h-full object-cover"
+          />
+          <div class="absolute top-3 right-3 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
+            {{ product.quantity }} disponibles
+          </div>
+        </div>
+
+        <div class="p-4 bg-white flex-grow flex flex-col">
+          <p class="text-lg font-bold mb-1 text-gray-800 line-clamp-2">{{ product.name }}</p>
+          <p class="text-gray-600 text-xs mb-2">Cantidad por unidad: {{ product.quantityPerUnit }}</p>
+
+          <div class="mt-auto">
+            <p class="text-2xl font-bold text-teal-600 m-0 mb-3">${{ product.unitPrice.toFixed(2) }}</p>
+          </div>
+        </div>
+
+        <div class="p-4 bg-gray-50 flex justify-center">
+          <button
+            (click)="openUseProductDialog(product)"
+            class="w-full bg-green-500 text-white py-2.5 rounded-lg font-semibold text-sm hover:bg-green-500 transition-colors duration-300 flex items-center justify-center gap-1.5"
+          >
+            <mat-icon class="!text-base !w-4 !h-4 !leading-none">remove_circle</mat-icon>
+            <span>Usar Producto</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para usar producto -->
+<div
+  *ngIf="showUseDialog"
+  class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+  (click)="closeUseDialog()"
+>
+  <div
+    class="bg-white rounded-lg shadow-2xl max-w-md w-full"
+    (click)="$event.stopPropagation()"
+  >
+    <div class="p-6 border-b border-gray-200">
+      <div class="flex items-center justify-between">
+        <h2 class="text-2xl font-bold text-gray-800 m-0">Usar Producto</h2>
+        <button
+          (click)="closeUseDialog()"
+          class="text-gray-400 hover:text-gray-600 transition-colors bg-transparent border-0 cursor-pointer"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <form #useProductForm="ngForm" class="p-6" *ngIf="selectedProduct">
+      <div class="mb-6">
+        <img
+          [src]="selectedProduct.photoUrl !== '' && selectedProduct.photoUrl !== 'string' ? selectedProduct.photoUrl : 'https://th.bing.com/th/id/OIP.HBh4qLAGWTtaaoTj-F3ySgHaHa?rs=1&pid=ImgDetMain'"
+          [alt]="selectedProduct.name"
+          class="w-full h-48 object-cover rounded-lg mb-4"
+        />
+        <h3 class="text-xl font-bold text-gray-800 mb-2">{{ selectedProduct.name }}</h3>
+        <p class="text-gray-600 m-0">Disponible: {{ selectedProduct.quantity }} unidades</p>
+      </div>
+
+      <div class="mb-6">
+        <label class="block text-gray-700 font-semibold mb-2">Cantidad a usar</label>
+        <input
+          type="number"
+          min="1"
+          [max]="getMaxQuantityToUse()"
+          placeholder="Cantidad"
+          name="quantityToUse"
+          [(ngModel)]="quantityToUse"
+          required
+          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+        />
+        <p class="text-xs text-gray-500 mt-2" *ngIf="selectedProduct.quantity === 1">
+          Solo puedes usar hasta {{ getMaxQuantityToUse() }} unidades (debe quedar al menos 1)
+        </p>
+        <p class="text-xs text-gray-500 mt-2" *ngIf="selectedProduct.quantity > 1">
+          Máximo: {{ getMaxQuantityToUse() }} unidades
+        </p>
+      </div>
+
+      <div class="bg-yellow-50 rounded-lg p-4 mb-6 border border-yellow-200">
+        <div class="flex items-start gap-2">
+          <mat-icon class="text-yellow-600 !text-xl">warning</mat-icon>
+          <div>
+            <p class="text-sm text-gray-700 m-0">
+              Esta acción reducirá la cantidad disponible del producto. No se puede deshacer.
+            </p>
+            <p *ngIf="selectedProduct.quantity === 1" class="text-sm text-gray-700 m-0 mt-2 font-semibold">
+              Nota: Debe quedar al menos 1 unidad en stock.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex gap-3">
+        <button
+          type="button"
+          (click)="closeUseDialog()"
+          [disabled]="usingProduct"
+          class="flex-1 bg-gray-200 text-gray-800 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-colors duration-300 disabled:opacity-50"
+        >
+          Cancelar
+        </button>
+        <button
+          type="button"
+          (click)="useProduct()"
+          [disabled]="useProductForm.invalid || usingProduct || !isValidQuantity()"
+          class="flex-1 bg-green-500 text-white py-3 rounded-lg font-semibold hover:bg-green-500 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {{ usingProduct ? 'Procesando...' : 'Confirmar' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal de éxito -->
+<div
+  *ngIf="showSuccessMessage"
+  class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[60] p-4"
+  (click)="closeSuccessMessage()"
+>
+  <div
+    class="bg-white rounded-lg shadow-2xl max-w-sm w-full p-8 text-center"
+    (click)="$event.stopPropagation()"
+  >
+    <div class="mb-4 flex justify-center">
+      <div class="bg-green-100 rounded-full p-4">
+        <mat-icon class="text-green-600 !w-12 !h-12 !text-5xl">check_circle</mat-icon>
+      </div>
+    </div>
+    <h3 class="text-2xl font-bold text-gray-800 mb-2">¡Producto Usado!</h3>
+    <p class="text-gray-600 mb-6">La cantidad ha sido actualizada correctamente</p>
+    <button
+      (click)="closeSuccessMessage()"
+      class="w-full bg-green-500 text-white py-3 rounded-lg font-semibold hover:bg-green-600 transition-colors duration-300"
+    >
+      Aceptar
+    </button>
+  </div>
+</div>
+
+<!-- Modal de error -->
+<div
+  *ngIf="showErrorMessage"
+  class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[60] p-4"
+  (click)="closeErrorMessage()"
+>
+  <div
+    class="bg-white rounded-lg shadow-2xl max-w-sm w-full p-8 text-center"
+    (click)="$event.stopPropagation()"
+  >
+    <div class="mb-4 flex justify-center">
+      <div class="bg-red-100 rounded-full p-4">
+        <mat-icon class="text-red-600 !w-12 !h-12 !text-5xl">error</mat-icon>
+      </div>
+    </div>
+    <h3 class="text-2xl font-bold text-gray-800 mb-2">Error</h3>
+    <p class="text-gray-600 mb-6">{{ errorMessage }}</p>
+    <button
+      (click)="closeErrorMessage()"
+      class="w-full bg-red-500 text-white py-3 rounded-lg font-semibold hover:bg-red-600 transition-colors duration-300"
+    >
+      Cerrar
+    </button>
+  </div>
+</div>

@@ -1,14 +1,13 @@
 <!-- Search and Filter Section -->
 <div class="mb-6 flex flex-col md:flex-row gap-4 items-center justify-between">
   <mat-form-field class="w-full md:w-96" appearance="outline">
-    <mat-label>{{ 'shared.search' | translate }}</mat-label>
+    <mat-icon matPrefix>search</mat-icon>
     <input
       matInput
       (keyup)="applyFilter($event)"
-      placeholder="{{ 'shared.searchPlaceholder' | translate }}"
+      [placeholder]="'shared.searchPlaceholder' | translate"
       #input
-    >
-    <mat-icon matPrefix>search</mat-icon>
+    />
   </mat-form-field>
 
   <div class="flex gap-2">

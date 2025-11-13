@@ -18,16 +18,13 @@
   width: 100% !important;
 }
 
-/* Botones con ancho completo en móvil */
 @media (max-width: 640px) {
-  ::ng-deep mat-card-actions {
-    flex-direction: column !important;
-  }
-
-  ::ng-deep mat-card-actions button {
+  /* Sólo el primer botón a 100% si lo quieres así en móvil */
+  ::ng-deep mat-card-actions .mat-mdc-button:first-child {
     width: 100% !important;
   }
 }
+
 
 /* Animación suave al cargar */
 :host {
