@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   DatepickerCalendarComponent
 } from "../../../public/components/datepicker-calendar/datepicker-calendar.component";
@@ -16,25 +16,34 @@ import {
   templateUrl: './agricultural-activity-scheduler.component.html',
   styleUrl: './agricultural-activity-scheduler.component.css'
 })
-export class AgriculturalActivitySchedulerComponent implements OnInit{
-  selectedDate!: string;
+export class AgriculturalActivitySchedulerComponent implements OnInit {
+  selectedDate: string | null = null;
   agriculturalProcessId!: number;
 
   ngOnInit() {
-    this.getAgriculturalProcessIdFromLocalStorage();
+    this.loadFromRouteState();
   }
 
-  getAgriculturalProcessIdFromLocalStorage() {
-    let id = localStorage.getItem('agriculturalProcessId');
+  loadFromRouteState() {
+    const state = history.state;
+
+    if (state && state.agriculturalProcessId) {
+      this.agriculturalProcessId = state.agriculturalProcessId;
+
+      localStorage.setItem('agriculturalProcessId', String(this.agriculturalProcessId));
+      return;
+    }
+
+    const id = localStorage.getItem('agriculturalProcessId');
     if (id) {
-      this.agriculturalProcessId = parseInt(id);
+      this.agriculturalProcessId = parseInt(id, 10);
     } else {
-      console.error('No agricultural process id found in local storage');
+      console.error('No agriculturalProcessId found in route state or localStorage');
     }
   }
 
-  handleSelectedDate(event: any) {
-    this.selectedDate = event;
+  handleSelectedDate(date: string | null) {
+    this.selectedDate = date;
     console.log(this.selectedDate);
   }
 }

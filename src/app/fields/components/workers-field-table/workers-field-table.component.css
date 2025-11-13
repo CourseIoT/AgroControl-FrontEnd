@@ -1,12 +1,11 @@
-/* Workers Table Styles */
-
 /* Responsive table adjustments */
 @media (max-width: 640px) {
   table {
     font-size: 0.875rem; /* 14px */
   }
 
-  th, td {
+  th,
+  td {
     padding: 0.75rem 0.5rem;
   }
 }
@@ -26,7 +25,7 @@ tbody tr {
 
 /* Focus states for accessibility */
 button:focus-visible {
-  outline: 2px solid #3b82f6;
+  outline: 2px solid #16a34a; /* verde */
   outline-offset: 2px;
 }
 
@@ -34,7 +33,7 @@ button:focus-visible {
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(6px);
   }
   to {
     opacity: 1;
@@ -42,33 +41,20 @@ button:focus-visible {
   }
 }
 
-.flex.flex-col.items-center {
-  animation: fadeIn 0.3s ease-out;
+.border.border-dashed {
+  animation: fadeIn 0.25s ease-out;
 }
 
-/* Mobile responsive adjustments */
+/* Mobile adjustments */
 @media (max-width: 480px) {
-  /* Stack table cells vertically on very small screens if needed */
   table {
     display: block;
     overflow-x: auto;
     white-space: nowrap;
   }
 
-  /* Adjust empty state padding */
-  .border.border-gray-200.rounded-lg.bg-white.p-8 {
-    padding: 2rem 1rem;
-  }
-
-  /* Adjust icon size */
-  .w-16.h-16 {
-    width: 3.5rem;
-    height: 3.5rem;
-  }
-
-  .w-8.h-8 {
-    width: 1.75rem;
-    height: 1.75rem;
+  .border.rounded-xl.bg-white.p-8 {
+    padding: 1.75rem 1.25rem;
   }
 }
 
@@ -83,7 +69,7 @@ button:focus-visible {
   }
 }
 
-/* Accessibility improvements */
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;

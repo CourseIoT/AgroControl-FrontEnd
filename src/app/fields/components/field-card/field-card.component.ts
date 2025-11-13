@@ -66,16 +66,34 @@ export class FieldCardComponent {
     this.agriculturalProcessService
       .getActivitiesByAgriculturalProcessId(agriculturalProcessId, "SEEDING")
       .subscribe({
-        next: () => this.router.navigate(['home-agricultural-process', agriculturalProcessId]),
-        error: () => this.router.navigate(["activity-scheduler/Seeding"])
+        next: () => this.router.navigate(['home-agricultural-process', agriculturalProcessId], {
+          state: {
+            fieldId: this.field.id,
+            fieldName: this.field.fieldName,
+            agriculturalProcessId
+          }
+        }),
+        error: () => this.router.navigate(["activity-scheduler/Seeding"], {
+          state: { agriculturalProcessId }
+        })
       });
   }
 
-  // 🔄 sin localStorage: navega pasando state (si necesitas esos datos)
+  /** Guarda en localStorage los datos del field y del proceso actual */
+  private persistFieldAndProcess(fieldId: number, fieldName: string, agriculturalProcessId: number) {
+    localStorage.setItem('fieldId', String(fieldId));
+    localStorage.setItem('fieldName', fieldName);
+    localStorage.setItem('agriculturalProcessId', String(agriculturalProcessId));
+  }
+
+  // 🔄 sin localStorage para navegar, pero SÍ lo usamos como backup
   createAgriculturalProcess(fieldIdToCreate: number) {
     this.agriculturalProcessService.create({ fieldId: fieldIdToCreate }).subscribe({
       next: (response: any) => {
-        // this.findSeedingActivity(response.id); // si lo quieres directo
+        console.log('Agricultural process created:', response);
+
+        this.persistFieldAndProcess(this.field.id, this.field.fieldName, response.id);
+
         this.router.navigate(['home-agricultural-process', response.id], {
           state: {
             fieldId: this.field.id,
@@ -92,12 +110,15 @@ export class FieldCardComponent {
     this.agriculturalProcessService.getUnfinishedAgriculturalProcessByFieldId(fieldId).subscribe({
       next: (response: any) => {
         if (response && typeof response.id === 'number' && response.id > 0) {
-          // Navega pasando state en lugar de usar localStorage
-          this.router.navigate(['home-agricultural-process', response.id], {
+          const agriId = response.id;
+
+          this.persistFieldAndProcess(this.field.id, this.field.fieldName, agriId);
+
+          this.router.navigate(['home-agricultural-process', agriId], {
             state: {
               fieldId: this.field.id,
               fieldName: this.field.fieldName,
-              agriculturalProcessId: response.id
+              agriculturalProcessId: agriId
             }
           });
         } else {

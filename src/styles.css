@@ -4,54 +4,45 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  background-color: #F4F4F4;
+/* ------------- Layout global ------------- */
+
+html, body {
+  height: 100%;
+  margin: 0;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* El body ya no scrollea, solo el contenido de la derecha */
+body {
+  background-color: #F4F4F4;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  overflow: hidden;
+}
 
-
-.mat-drawer-container,
-.mat-drawer,
-.mat-drawer-content,
-.mat-drawer-inner-container {
+/* El contenedor principal del sidenav ocupa toda la pantalla */
+.mat-drawer-container {
+  height: 100vh;
   border-radius: 0 !important;
-  overflow: visible !important;
   background-clip: border-box !important;
 }
 
-.mat-drawer-inner-container {
-  padding: 0 !important;
-}
-
-@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Raleway:wght@100..900&display=swap');
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-body {
-  background-color: #F4F4F4;
-}
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-
-.mat-drawer-container,
-.mat-drawer,
-.mat-drawer-content,
-.mat-drawer-inner-container {
+/* El contenido (derecha) es el que scrollea */
+.mat-drawer-content {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
   border-radius: 0 !important;
-  overflow: visible !important;
   background-clip: border-box !important;
 }
 
+/* El drawer (izquierda) NO scrollea, solo se mantiene fijo */
+.mat-drawer,
 .mat-drawer-inner-container {
-  padding: 0 !important;
+  border-radius: 0 !important;
+  background-clip: border-box !important;
+  overflow: hidden; /* importante para que no haga scroll */
 }
 
+/* Mat-icon fix */
 .mat-icon {
   display: inline-flex !important;
   align-items: center !important;

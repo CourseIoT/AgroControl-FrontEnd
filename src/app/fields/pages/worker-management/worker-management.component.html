@@ -1,31 +1,64 @@
-<div class="flex flex-col items-center gap-6 mt-4 p-4">
-  <!-- Botón Add Worker -->
-  <button
-    (click)="openModal()"
-    class="w-full max-w-xs bg-blue-600 text-white rounded-lg py-3 px-6 transition-all transform hover:scale-105 shadow-lg"
-  >
-    {{ 'workers.addWorker' | translate }}
-  </button>
+<!-- Worker Management Page -->
+<section class="min-h-screen bg-gray-50 p-4 md:p-6">
+  <div class="max-w-5xl mx-auto flex flex-col gap-6">
 
-  <!-- Tabla de Workers -->
-  <app-workers-field-table
-    [workers]="dataSource"
-    class="w-full max-w-4xl p-4 bg-white rounded-lg shadow-lg"
-  ></app-workers-field-table>
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div>
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-900">
+          {{ 'workers.title' | translate : { default: 'Workers' } }}
+        </h1>
+        <p class="text-gray-500 text-sm md:text-base mt-1">
+          {{ 'workers.subtitle' | translate : { default: 'Manage the workers of your fields' } }}
+        </p>
+      </div>
 
-  <!-- Botón Return -->
-  <button
-    (click)="goToHome()"
-    class="w-full max-w-xs bg-blue-600 text-white rounded-lg py-3 px-6 transition-all transform hover:scale-105 shadow-lg"
-  >
-    {{ 'shared.return' | translate }}
-  </button>
+      <!-- Return button -->
+      <button
+        (click)="goToHome()"
+        class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-700 text-sm font-semibold shadow-sm hover:bg-gray-50 transition-all duration-200"
+      >
+        <span class="material-icons text-base">arrow_back</span>
+        {{ 'shared.return' | translate }}
+      </button>
+    </div>
 
+    <!-- Card con tabla + acción -->
+    <div class="bg-white rounded-xl shadow-md border border-gray-200 p-4 md:p-6 flex flex-col gap-4">
+
+      <!-- Top row: título card + botón agregar -->
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+        <div>
+          <h2 class="text-xl font-semibold text-gray-900">
+            {{ 'workers.listTitle' | translate : { default: 'Workers list' } }}
+          </h2>
+          <p class="text-gray-500 text-sm mt-1">
+            {{ 'workers.listSubtitle' | translate : { default: 'Here you can add and manage your workers' } }}
+          </p>
+        </div>
+
+        <button
+          (click)="openModal()"
+          class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-white text-sm font-semibold shadow-md hover:bg-primary-hover transition-all duration-200 transform hover:-translate-y-0.5"
+        >
+          <span class="material-icons text-base">person_add</span>
+          {{ 'workers.addWorker' | translate }}
+        </button>
+      </div>
+
+      <!-- Tabla -->
+      <app-workers-field-table
+        [workers]="dataSource"
+        class="w-full"
+      ></app-workers-field-table>
+    </div>
+  </div>
+
+  <!-- Modal de creación/edición de worker -->
   <app-worker-field-form
-  [isModalOpen]="modalOpen"
-  (close)="closeModal()"
-  [userId]="userId"
-  (success)="handleSuccess()"
-  class="w-full max-w-lg"
-></app-worker-field-form>
-</div>
+    [isModalOpen]="modalOpen"
+    (close)="closeModal()"
+    [userId]="userId"
+    (success)="handleSuccess()"
+  ></app-worker-field-form>
+</section>

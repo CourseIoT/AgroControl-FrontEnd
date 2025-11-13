@@ -1,12 +1,12 @@
 .profile-page {
-  height: 100%;
+  /* Restamos la altura aproximada del top bar (64px Material por defecto) */
+  min-height: calc(100vh - 64px);
   display: flex;
   flex-direction: column;
   background: linear-gradient(135deg, #e8eef2 0%, #d4dce3 100%);
-  overflow:hidden;
-
 }
 
+/* Header propio de la página de perfil */
 .profile-header {
   background: white;
   padding: 1rem;
@@ -33,15 +33,14 @@
   margin: 0;
 }
 
+/* Contenido ocupa el espacio entre header y footer */
 .profile-main {
-  flex: 1;
-  padding: 1rem;
+  flex: 1 1 auto;
+  padding: 2rem 1rem 1rem;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 0;
-  overflow: hidden;
-
+  justify-content: center;   /* centrado horizontal */
+  align-items: flex-start;   /* pegado arriba, no centrado vertical */
+  overflow: auto;            /* por si en pantallas chicas no entra todo */
 }
 
 .profile-container {
@@ -49,6 +48,7 @@
   max-width: 600px;
 }
 
+/* Footer pegado al borde inferior del área disponible */
 .profile-footer {
   background: #1e4d4d;
   color: white;
@@ -73,7 +73,7 @@
   }
 
   .profile-main {
-    padding: 0.75rem;
+    padding: 1rem;
   }
 
   .profile-footer {

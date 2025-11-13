@@ -95,6 +95,12 @@
     "expenses": "Gastos"
   },
   "workers": {
+    "title": "Trabajadores",
+    "subtitle": "Administra los trabajadores de tus campos",
+    "listTitle": "Lista de trabajadores",
+    "listSubtitle": "Aquí puedes agregar y gestionar tus trabajadores",
+    "emptyTitle": "No hay trabajadores asignados",
+    "emptySubtitle": "Agrega trabajadores desde la pantalla de administración.",
     "manageWorkers": "Administrar Trabajadores",
     "addWorker": "Agregar Trabajador"
   },

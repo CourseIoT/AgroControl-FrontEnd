@@ -40,10 +40,7 @@ export class FinanceTableComponent implements OnInit {
     this.dataSource = new MatTableDataSource<any>();
   }
 
-  ngOnInit(): void {
-    // Store original data for filtering
-    this.originalData = [...this.dataSource.data];
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -61,10 +58,17 @@ export class FinanceTableComponent implements OnInit {
   filterByType(type: string): void {
     this.filterType = type;
 
+    // 👉 Si aún no hemos guardado la data original, la guardamos ahora
+    if (!this.originalData.length && this.dataSource.data.length) {
+      this.originalData = [...this.dataSource.data];
+    }
+
     if (type === 'ALL') {
       this.dataSource.data = [...this.originalData];
     } else {
-      this.dataSource.data = this.originalData.filter((item: any) => item.type === type);
+      this.dataSource.data = this.originalData.filter(
+        (item: any) => item.type === type
+      );
     }
 
     if (this.dataSource.paginator) {
