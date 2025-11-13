@@ -1,14 +1,24 @@
-<div class="bg-gray-300 p-6">
-  <div class="p-4 flex flex-col gap-4 bg-white shadow-lg rounded-lg md:grid grid-cols-2 border border-gray-400">
-    <app-agricultural-activity-form
-      class="h-full"
-      [date]="selectedDate || ''"
-    [agriculturalProcessId]="agriculturalProcessId"
-    />
-    <app-datepicker-calendar
-      class="h-full"
-      (dateSelected)="handleSelectedDate($event)"
-    />
+<div class="min-h-screen bg-gray-50">
+  <div class="max-w-5xl mx-auto px-4 py-8">
+    <div
+      class="grid gap-6 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] items-start"
+    >
+      <!-- Card formulario -->
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+        <app-agricultural-activity-form
+          class="h-full"
+          [date]="selectedDate || ''"
+          [agriculturalProcessId]="agriculturalProcessId"
+        ></app-agricultural-activity-form>
+      </div>
+
+      <!-- Card calendario -->
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+        <app-datepicker-calendar
+          class="h-full"
+          (dateSelected)="handleSelectedDate($event)"
+        ></app-datepicker-calendar>
+      </div>
+    </div>
   </div>
 </div>
-

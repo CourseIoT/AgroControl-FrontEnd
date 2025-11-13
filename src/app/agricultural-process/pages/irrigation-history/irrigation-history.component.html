@@ -1,19 +1,40 @@
-<section class="p-4">
-  <div class="flex flex-col gap-4 justify-center ">
-    <h2 class="text-center font-bold text-3xl md:text-5xl">{{ 'agriculturalActivity.irrigationHistory' | translate }}</h2>
-    <app-agricultural-activity-table
-      class="max-w-full"
-      [dataSource]="dataSource"
-      [displayedColumns]="displayedColumns"
-    />
-    <div class="flex justify-end">
-      <button
-        class="bg-primary px-5 py-3 text-white font-semibold uppercase rounded-lg shadow-md hover:bg-primary-hover disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 ease-in-out"
-        [routerLink]="['/activity-scheduler', 'Irrigation']"
-        [state]="{ agriculturalProcessId: agriculturalProcessId }">
-        {{ 'agriculturalActivity.addIrrigation' | translate }}
-      </button>
-    </div>
+<div class="min-h-screen bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4 pt-6 pb-10">
+    <div class="flex flex-col gap-6">
+      <!-- Header card -->
+      <div
+        class="bg-white rounded-2xl shadow-sm border border-gray-200 px-6 py-4
+               flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+      >
+        <div>
+          <h1 class="text-2xl font-bold text-gray-900">
+            {{ 'agriculturalActivity.irrigationHistory' | translate }}
+          </h1>
+          <p class="text-gray-500 text-sm mt-1">
+            {{ 'agriculturalActivity.irrigationHistorySubtitle' | translate }}
+          </p>
+        </div>
 
+        <button
+          class="inline-flex items-center gap-2 bg-primary px-4 py-2.5 text-white text-sm
+                 font-semibold uppercase rounded-lg shadow-md hover:bg-primary-hover
+                 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+          [routerLink]="['/activity-scheduler', 'Irrigation']"
+          [state]="{ agriculturalProcessId: agriculturalProcessId }"
+        >
+          <mat-icon class="!text-base !w-4 !h-4">add</mat-icon>
+          {{ 'agriculturalActivity.addIrrigation' | translate }}
+        </button>
+      </div>
+
+      <!-- Tabla en tarjeta -->
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+        <app-agricultural-activity-table
+          class="max-w-full"
+          [dataSource]="dataSource"
+          [displayedColumns]="displayedColumns"
+        ></app-agricultural-activity-table>
+      </div>
+    </div>
   </div>
-</section>
+</div>

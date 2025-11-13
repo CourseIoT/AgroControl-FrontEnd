@@ -7,6 +7,7 @@ import {
 } from "../../components/agricultural-activity-table/agricultural-activity-table.component";
 import { RouterLink } from "@angular/router";
 import { TranslateModule } from "@ngx-translate/core";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-harvest-history',
@@ -14,7 +15,8 @@ import { TranslateModule } from "@ngx-translate/core";
   imports: [
     AgriculturalActivityTableComponent,
     RouterLink,
-    TranslateModule
+    TranslateModule,
+    MatIcon
   ],
   templateUrl: './harvest-history.component.html',
   styleUrl: './harvest-history.component.css'
