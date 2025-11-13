@@ -33,7 +33,6 @@
         [type]="'SEEDING'">
       </app-last-activity-card>
 
-      <!-- 🔢 Jump a otro Agricultural Process ID -->
       <div class="mt-6 flex flex-col sm:flex-row items-center gap-3">
         <label class="text-sm font-semibold text-gray-700">
           Go to process ID:
@@ -61,10 +60,8 @@
         </h2>
       </div>
 
-      <!-- Workers Table (muestra lista o estado vacío) -->
       <app-workers-field-table [workers]="workers"></app-workers-field-table>
 
-      <!-- Botón para ir SIEMPRE a la pantalla de gestión -->
       <div class="flex justify-center mt-4">
         <button
           mat-raised-button

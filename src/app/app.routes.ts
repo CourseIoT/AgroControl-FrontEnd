@@ -29,6 +29,8 @@ import {ProductsStoreComponent} from "./store/pages/products-store/products-stor
 import {HomeDistributorComponent} from "./public/pages/home-distributor/home-distributor.component";
 import {SalesHistoryComponent} from "./store/pages/sales-history/sales-history.component";
 import {ProfilePageComponent} from "./profile-management/pages/profile-page/profile-page.component";
+import { HomeViewDistributorComponent } from './distributor-proccess/pages/home-view-distributor/home-view-distributor.component';
+
 
 export const routes: Routes = [
   { path: 'register', component: RegisterPageComponent, canActivate: [ isNotAuthenticatedGuard ] },
@@ -47,6 +49,10 @@ export const routes: Routes = [
     canActivate: [isAuthenticatedGuard],
     data: { roles: ['ROLE_DISTRIBUTOR'] },
     children: [
+      {
+        path: '',
+        component: HomeViewDistributorComponent
+      },
       {
         path: 'profile-distributor/:id',
         component: ProfilePageComponent,

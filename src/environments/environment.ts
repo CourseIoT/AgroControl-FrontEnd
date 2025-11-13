@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  serverBasePath: "https://agrocontrol-backend.onrender.com/api/v1"
+  serverBasePath: "https://agrocontrol-backend-1.onrender.com/api/v1"
 };

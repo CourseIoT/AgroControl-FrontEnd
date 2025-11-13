@@ -1,74 +1,255 @@
 <div class="flex bg-white">
   <div class="w-full flex flex-col justify-center items-center p-8">
-    <h1 class="text-2xl font-bold text-gray-700 mb-4">{{activityType}}</h1>
+    <!-- Título + subtítulo -->
+    <h1 class="text-2xl font-bold text-gray-800 mb-1">
+      {{ activityTitleKey | translate }}
+    </h1>
+    <p class="text-sm text-gray-500 mb-3">
+      {{ 'agriculturalActivity.formSubtitle' | translate }}
+    </p>
 
-    <form #activityForm="ngForm" (ngSubmit)="onSubmit()" class="w-full max-w-sm">
-      <mat-form-field appearance="fill" class="w-full">
-        <mat-label>{{ 'shared.date' | translate }}</mat-label>
-        <input matInput placeholder="Date" [(ngModel)]="date" name="date" readonly>
-      </mat-form-field>
+    <!-- Mensaje de éxito -->
+    <div *ngIf="successMessageKey" class="w-full max-w-lg mb-4">
+      <div
+        class="flex items-center gap-2 rounded-lg border border-green-200 bg-green-50
+               px-3 py-2 text-sm text-green-700"
+      >
+        <mat-icon class="!text-base !w-4 !h-4">check_circle</mat-icon>
+        <span>{{ successMessageKey | translate }}</span>
+      </div>
+    </div>
 
+    <form
+      #activityForm="ngForm"
+      (ngSubmit)="onSubmit()"
+      class="w-full max-w-lg space-y-6"
+    >
+      <!-- DATE -->
+      <div class="space-y-1">
+        <label class="block text-sm font-medium text-gray-700">
+          {{ 'shared.date' | translate }}*
+        </label>
 
-      <div *ngIf="activityType === 'Seeding'">
-        <mat-form-field appearance="fill" class="w-full">
-          <mat-label>{{ 'agriculturalProcess.plantType' | translate }}</mat-label>
-          <input matInput placeholder="Plan Type" name="plantType" [(ngModel)]="item.plantType" required>
-        </mat-form-field>
+        <input
+          class="w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-800
+                 bg-gray-50 shadow-sm cursor-not-allowed
+                 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+          [(ngModel)]="date"
+          name="date"
+          readonly
+          required
+          #dateCtrl="ngModel"
+        />
 
-        <mat-form-field appearance="fill" class="w-full">
-          <mat-label>{{ 'agriculturalProcess.quantityPlanted' | translate }}</mat-label>
-          <input matInput type="number" min="1" placeholder="Quantity Planted" name="quantityPlanted" [(ngModel)]="item.quantityPlanted" required>
-        </mat-form-field>
+        <p
+          *ngIf="dateCtrl.invalid && (dateCtrl.touched || activityForm.submitted)"
+          class="mt-1 text-xs text-red-500"
+        >
+          {{ 'validation.requiredDate' | translate }}
+        </p>
       </div>
 
-      <div *ngIf="activityType === 'Irrigation'">
-        <mat-form-field appearance="fill" class="w-full">
-          <mat-label>{{ 'agriculturalProcess.hoursIrrigated' | translate }}</mat-label>
-          <input matInput type="number" min="1" placeholder="Hours Irrigated" name="hoursIrrigated" [(ngModel)]="item.hoursIrrigated" required>
-        </mat-form-field>
+      <!--  SEEDING  -->
+      <div *ngIf="activityType === 'Seeding'" class="space-y-4">
+        <!-- Plant type -->
+        <div class="space-y-1">
+          <label class="block text-sm font-medium text-gray-700">
+            {{ 'agriculturalProcess.plantType' | translate }}*
+          </label>
+          <input
+            [(ngModel)]="item.plantType"
+            name="plantType"
+            required
+            #plantTypeCtrl="ngModel"
+            class="w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-800
+                   shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+          />
+          <p
+            *ngIf="plantTypeCtrl.invalid && (plantTypeCtrl.touched || activityForm.submitted)"
+            class="mt-1 text-xs text-red-500"
+          >
+            {{ 'validation.requiredField' | translate }}
+          </p>
+        </div>
+
+        <!-- Quantity planted -->
+        <div class="space-y-1">
+          <label class="block text-sm font-medium text-gray-700">
+            {{ 'agriculturalProcess.quantityPlanted' | translate }}*
+          </label>
+          <input
+            type="number"
+            min="1"
+            [(ngModel)]="item.quantityPlanted"
+            name="quantityPlanted"
+            required
+            #qtyPlantedCtrl="ngModel"
+            class="w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-800
+                   shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+          />
+          <p
+            *ngIf="qtyPlantedCtrl.invalid && (qtyPlantedCtrl.touched || activityForm.submitted)"
+            class="mt-1 text-xs text-red-500"
+          >
+            <span *ngIf="qtyPlantedCtrl.errors?.['required']">
+              {{ 'validation.requiredField' | translate }}
+            </span>
+            <span *ngIf="qtyPlantedCtrl.errors?.['min']">
+              {{ 'validation.positiveNumber' | translate }}
+            </span>
+          </p>
+        </div>
       </div>
 
-      <div *ngIf="activityType === 'CropTreatment'">
-        <mat-form-field appearance="fill" class="w-full">
-          <mat-label>{{ 'agriculturalProcess.type' | translate }}</mat-label>
-          <mat-select placeholder="Type" name="treatmentType" [(ngModel)]="item.treatmentType" required>
-            <mat-option [value]="'Fertilization'">Fertilization</mat-option>
-            <mat-option [value]="'Fumigation'">Fumigation</mat-option>
-          </mat-select>
-        </mat-form-field>
+      <!--  IRRIGATION  -->
+      <div *ngIf="activityType === 'Irrigation'" class="space-y-1">
+        <label class="block text-sm font-medium text-gray-700">
+          {{ 'agriculturalProcess.hoursIrrigated' | translate }}*
+        </label>
+
+        <input
+          type="number"
+          min="1"
+          [(ngModel)]="item.hoursIrrigated"
+          name="hoursIrrigated"
+          required
+          #hoursCtrl="ngModel"
+          class="w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-800
+                 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+        />
+
+        <p
+          *ngIf="hoursCtrl.invalid && (hoursCtrl.touched || activityForm.submitted)"
+          class="mt-1 text-xs text-red-500"
+        >
+          <span *ngIf="hoursCtrl.errors?.['required']">
+            {{ 'validation.requiredField' | translate }}
+          </span>
+          <span *ngIf="hoursCtrl.errors?.['min']">
+            {{ 'validation.positiveNumber' | translate }}
+          </span>
+        </p>
       </div>
 
-      <div *ngIf="activityType === 'Harvest'">
-        <mat-form-field appearance="fill" class="w-full">
-          <mat-label>{{ 'agriculturalProcess.quantityHarvested' | translate }}</mat-label>
-          <input matInput type="number" min="1" placeholder="Quantity Harvested" name="quantityInKg" [(ngModel)]="item.quantityInKg" required>
-        </mat-form-field>
+      <!--  CROP TREATMENT  -->
+      <div *ngIf="activityType === 'CropTreatment'" class="space-y-1">
+        <label class="block text-sm font-medium text-gray-700">
+          {{ 'agriculturalProcess.type' | translate }}*
+        </label>
 
-        <mat-form-field appearance="fill" class="w-full">
-          <mat-label>{{ 'agriculturalProcess.pricePerKg' | translate }}</mat-label>
-          <input matInput type="number" min="1" placeholder="Price Per Kg" name="pricePerKg" [(ngModel)]="item.pricePerKg" required>
-        </mat-form-field>
+        <select
+          [(ngModel)]="item.treatmentType"
+          name="treatmentType"
+          required
+          #treatmentCtrl="ngModel"
+          class="w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-800
+                 shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+        >
+          <option value="" disabled selected>
+            {{ 'shared.select' | translate }}
+          </option>
+          <option value="Fertilization">Fertilization</option>
+          <option value="Fumigation">Fumigation</option>
+        </select>
+
+        <p
+          *ngIf="treatmentCtrl.invalid && (treatmentCtrl.touched || activityForm.submitted)"
+          class="mt-1 text-xs text-red-500"
+        >
+          {{ 'validation.requiredField' | translate }}
+        </p>
       </div>
 
-      <div class="flex flex-col gap-4 sm:flex-row justify-around mt-4">
+      <!--  HARVEST  -->
+      <div *ngIf="activityType === 'Harvest'" class="space-y-4">
+        <!-- Quantity harvested -->
+        <div class="space-y-1">
+          <label class="block text-sm font-medium text-gray-700">
+            {{ 'agriculturalProcess.quantityHarvested' | translate }}*
+          </label>
+          <input
+            type="number"
+            min="1"
+            [(ngModel)]="item.quantityInKg"
+            name="quantityInKg"
+            required
+            #qtyHarvestCtrl="ngModel"
+            class="w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-800
+                   shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+          />
+          <p
+            *ngIf="qtyHarvestCtrl.invalid && (qtyHarvestCtrl.touched || activityForm.submitted)"
+            class="mt-1 text-xs text-red-500"
+          >
+            <span *ngIf="qtyHarvestCtrl.errors?.['required']">
+              {{ 'validation.requiredField' | translate }}
+            </span>
+            <span *ngIf="qtyHarvestCtrl.errors?.['min']">
+              {{ 'validation.positiveNumber' | translate }}
+            </span>
+          </p>
+        </div>
+
+        <!-- Price per Kg -->
+        <div class="space-y-1">
+          <label class="block text-sm font-medium text-gray-700">
+            {{ 'agriculturalProcess.pricePerKg' | translate }}*
+          </label>
+          <input
+            type="number"
+            min="1"
+            [(ngModel)]="item.pricePerKg"
+            name="pricePerKg"
+            required
+            #priceCtrl="ngModel"
+            class="w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-800
+                   shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+          />
+          <p
+            *ngIf="priceCtrl.invalid && (priceCtrl.touched || activityForm.submitted)"
+            class="mt-1 text-xs text-red-500"
+          >
+            <span *ngIf="priceCtrl.errors?.['required']">
+              {{ 'validation.requiredField' | translate }}
+            </span>
+            <span *ngIf="priceCtrl.errors?.['min']">
+              {{ 'validation.positiveNumber' | translate }}
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Botones -->
+      <div class="flex flex-col sm:flex-row justify-center gap-4 pt-4">
         <button
           type="submit"
           [disabled]="activityForm.invalid"
-          class="bg-primary px-5 py-3 text-white font-semibold uppercase rounded-lg shadow-md hover:bg-primary-hover disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 ease-in-out">
+          class="min-w-[150px] bg-green-500 hover:bg-green-600 text-white
+                 font-semibold uppercase px-8 py-3 rounded-xl shadow-md
+                 disabled:opacity-60 disabled:cursor-not-allowed
+                 transition-all duration-200"
+        >
           {{ 'shared.confirm' | translate }}
         </button>
-
 
         <button
           type="button"
           (click)="onCancel()"
-          class="bg-red-600 text-white font-semibold uppercase px-5 py-3 rounded-lg shadow-md hover:bg-red-700 transition-all duration-300 ease-in-out">
+          class="min-w-[150px] bg-red-500 hover:bg-red-600 text-white
+                 font-semibold uppercase px-8 py-3 rounded-xl shadow-md
+                 transition-all duration-200"
+        >
           {{ 'shared.cancel' | translate }}
         </button>
       </div>
-
     </form>
   </div>
 </div>
 
-<app-resource-form [showForm]="showResourceForm" [activityId]="activityId" [agriculturalProcessId]="newAgriProcessId" (close)="handleClose()"/>
+<!-- Popup de recursos -->
+<app-resource-form
+  [showForm]="showResourceForm"
+  [activityId]="activityId"
+  [agriculturalProcessId]="newAgriProcessId"
+  (close)="handleClose()"
+></app-resource-form>

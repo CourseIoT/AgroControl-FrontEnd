@@ -18,7 +18,6 @@
     "error": "Error",
     "retry": "Reintentar",
     "noData": "No hay datos disponibles",
-    "close": "Cerrar",
     "filter": "Filtro",
     "filterPlaceholder": "Ej. riego",
     "viewDetails": "Ver detalles",
@@ -30,7 +29,9 @@
     "search": "Buscar",
     "searchPlaceholder": "Buscar...",
     "all": "Todos",
-    "actions": "Acciones"
+    "actions": "Acciones",
+    "ok": "OK",
+    "close": "Cerrar"
   },
   "users": {
     "fullName": "Nombre Completo",
@@ -63,7 +64,28 @@
     "noCropTreatmentActivities": "No hay actividades de tratamiento registradas aún",
     "addFirstCropTreatment": "Agregar primera actividad de tratamiento",
     "noHarvestActivities": "No hay actividades de cosecha registradas aún",
-    "addFirstHarvest": "Agregar primera actividad de cosecha"
+    "addFirstHarvest": "Agregar primera actividad de cosecha",
+    "activityTitle": "Actividad",
+    "seedingTitle": "Registrar siembra",
+    "irrigationTitle": "Registrar riego",
+    "cropTreatmentTitle": "Registrar tratamiento de cultivo",
+    "harvestTitle": "Registrar cosecha",
+    "seedingCreated": "Actividad de siembra creada correctamente.",
+    "irrigationCreated": "Actividad de riego creada correctamente.",
+    "cropTreatmentCreated": "Actividad de tratamiento de cultivo creada correctamente.",
+    "harvestCreated": "Actividad de cosecha creada correctamente.",
+    "seedingError": "No se pudo crear la actividad de siembra. Inténtalo nuevamente.",
+    "irrigationError": "No se pudo crear la actividad de riego. Inténtalo nuevamente.",
+    "cropTreatmentError": "No se pudo crear la actividad de tratamiento de cultivo. Inténtalo nuevamente.",
+    "harvestError": "No se pudo crear la actividad de cosecha. Inténtalo nuevamente.",
+    "irrigationHistoryTitle": "Historial de riego",
+    "irrigationHistorySubtitle": "Gestiona y revisa todas las actividades de riego de este proceso.",
+    "irrigationEmptyTitle": "Aún no hay actividades de riego",
+    "irrigationEmptySubtitle": "Comienza programando un nuevo riego para mantener tu proceso al día.",
+    "irrigationGoToScheduler": "Programar riego",
+    "irrigationGoHome": "Volver al resumen del proceso",
+    "harvestHistorySubtitle": "Revisa todas las actividades de cosecha de este proceso.",
+    "cropTreatmentHistorySubtitle": "Administra y revisa todas las actividades de tratamiento de cultivo de este proceso."
   },
   "resources": {
     "products": "Productos",
@@ -94,6 +116,7 @@
     "income": "Ingresos",
     "expenses": "Gastos"
   },
+
   "workers": {
     "title": "Trabajadores",
     "subtitle": "Administra los trabajadores de tus campos",
@@ -110,6 +133,27 @@
     "location": "Ubicación",
     "myFields": "Mis Campos",
     "fieldMessage": "Aquí puedes ver y administrar tus campos."
+  },
+  "distributor": {
+    "dashboard": {
+      "welcome": "Bienvenido {{name}} 👋",
+      "subtitle": "Aquí puedes ver un resumen de tus ventas y productos"
+    }
+  },
+  "sales": {
+    "history": {
+      "subtitle": "Consulta el detalle de tus ventas recientes",
+      "export": "Exportar"
+    }
+  },
+  "roles": {
+    "distributor": "Distribuidor"
+  },
+  "validation": {
+    "requiredDate": "La fecha es obligatoria",
+    "requiredField": "Este campo es obligatorio",
+    "positiveNumber": "Ingresa un número mayor a 0",
+    "formInvalid": "Revisa los campos del formulario. Hay valores requeridos o inválidos."
   },
   "products": {
     "product": "Producto",

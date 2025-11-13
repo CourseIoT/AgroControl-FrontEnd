@@ -63,7 +63,29 @@
     "noCropTreatmentActivities": "No crop treatment activities registered yet",
     "addFirstCropTreatment": "Add first crop treatment activity",
     "noHarvestActivities": "No harvest activities registered yet",
-    "addFirstHarvest": "Add first harvest activity"
+    "addFirstHarvest": "Add first harvest activity",
+    "activityTitle": "Activity",
+    "seedingTitle": "Register Seeding",
+    "irrigationTitle": "Register Irrigation",
+    "cropTreatmentTitle": "Register Crop Treatment",
+    "harvestTitle": "Register Harvest",
+    "seedingCreated": "Seeding activity created successfully.",
+    "irrigationCreated": "Irrigation activity created successfully.",
+    "cropTreatmentCreated": "Crop treatment activity created successfully.",
+    "harvestCreated": "Harvest activity created successfully.",
+    "seedingError": "The seeding activity could not be created. Please try again.",
+    "irrigationError": "The irrigation activity could not be created. Please try again.",
+    "cropTreatmentError": "The crop treatment activity could not be created. Please try again.",
+    "harvestError": "The harvest activity could not be created. Please try again.",
+    "irrigationHistoryTitle": "Irrigation History",
+    "irrigationHistorySubtitle": "Manage and review all irrigation activities for this process.",
+    "irrigationEmptyTitle": "No irrigation activities yet",
+    "irrigationEmptySubtitle": "Start by scheduling a new irrigation to keep your process up to date.",
+    "irrigationGoToScheduler": "Schedule irrigation",
+    "irrigationGoHome": "Back to process overview",
+    "formSubtitle": "Select a date in the calendar on the right to register the activity.",
+    "harvestHistorySubtitle": "Review all harvest activities for this process.",
+    "cropTreatmentHistorySubtitle": "Manage and review all crop treatment activities for this process."
   },
   "resources": {
     "products": "Products",
@@ -82,6 +104,12 @@
     "totalCost": "Total Cost",
     "totalQuantity": "Total Quantity",
     "noResources": "No resources available"
+  },
+  "validation": {
+    "requiredDate": "Date is required",
+    "requiredField": "This field is required",
+    "positiveNumber": "Enter a number greater than 0",
+    "formInvalid": "Please review the form fields. There are required or invalid values."
   },
   "finances": {
     "totalIncome": "Total Income",
@@ -110,6 +138,21 @@
     "location": "Location",
     "myFields": "My Fields",
     "fieldMessage": "Here you can view and manage your fields."
+  },
+  "distributor": {
+    "dashboard": {
+      "welcome": "Welcome {{name}} 👋",
+      "subtitle": "Here you can see a summary of your sales and products"
+    }
+  },
+  "sales": {
+    "history": {
+      "subtitle": "Review the details of your recent sales",
+      "export": "Export"
+    }
+  },
+  "roles": {
+    "distributor": "Distributor"
   },
   "products": {
     "product": "Product",
