@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from "@angular/router";
 import { AgriculturalProcessService } from "../../services/agricultural-process.service";
 import { TranslateModule } from "@ngx-translate/core";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-irrigation-history',
@@ -16,7 +17,8 @@ import { TranslateModule } from "@ngx-translate/core";
     AgriculturalActivityTableComponent,
     MatButtonModule,
     RouterLink,
-    TranslateModule
+    TranslateModule,
+    MatIcon
   ],
   templateUrl: './irrigation-history.component.html',
   styleUrl: './irrigation-history.component.css'

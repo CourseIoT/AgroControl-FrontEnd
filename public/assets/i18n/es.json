@@ -111,6 +111,21 @@
     "myFields": "Mis Campos",
     "fieldMessage": "Aquí puedes ver y administrar tus campos."
   },
+  "distributor": {
+    "dashboard": {
+      "welcome": "Bienvenido {{name}} 👋",
+      "subtitle": "Aquí puedes ver un resumen de tus ventas y productos"
+    }
+  },
+  "sales": {
+    "history": {
+      "subtitle": "Consulta el detalle de tus ventas recientes",
+      "export": "Exportar"
+    }
+  },
+  "roles": {
+    "distributor": "Distribuidor"
+  },
   "products": {
     "product": "Producto",
     "quantityPerUnit": "Cantidad por Unidad",
